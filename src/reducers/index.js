@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import fuelSavings from './fuelSavingsReducer';
+import fileListReducer from './fileListReducer';
+import myStudiesListReducer from './myStudiesListReducer';
 
 const rootReducer = combineReducers({
-  fuelSavings,
+  fileListReducer,
+  myStudiesListReducer
 });
 
 export default rootReducer;

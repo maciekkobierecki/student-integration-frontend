@@ -1,0 +1,23 @@
+.my-studies-list{
+  padding: 10px;
+}
+
+.academy{
+  border-bottom: #bfbfbf solid 1px;
+  min-height: 20px;
+}
+.list-option{
+  min-height: 24px;
+  text-align: center;
+  border-bottom: #cbcbcb solid 1px;
+}
+
+.list-option:hover{
+  background-color: #bfbfbf;
+}
+
+.semester-option:hover{
+  background-color: red;
+}
+
+li {list-style-type: none;}

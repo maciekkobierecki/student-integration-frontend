@@ -1,6 +1,12 @@
 import * as types from '../constants/actionTypes';
 import fetch from 'isomorphic-fetch';
 
+export function clearFileList(){
+  return {
+    type: types.CLEAR_FILE_LIST
+  }
+}
+
 export function getDataRequested(){
   return {
     type: types.FETCH_FILE_LIST_REQUESTED

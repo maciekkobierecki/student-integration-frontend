@@ -1,10 +1,9 @@
 import React from 'react';
-import { FileList } from './file-list/FileList';
 
 const HomePage = () => {
   return (
-    <div>
-      <FileList/>
+    <div className="my-files-page">
+      Home page które jest tu bez sensu
     </div>
   );
 };

@@ -1,54 +1,77 @@
 import React from 'react';
-import File from './File';
-import {bindActionCreators} from "redux";
-import * as actions from "../../actions/fuelSavingsActions";
+import * as actions from "../../actions/fileListActions";
 import connect from "react-redux/es/connect/connect";
-import {FuelSavingsPage} from "../containers/FuelSavingsPage";
+import { lang } from '../../constants/translations';
+import './FileList.css';
 
-export class FileList extends React.Component {
-  constructor() {
-    super();
-    this.files = [{
-      "id": 5,
-      "date": "12-12-2018",
-      "url": "https://docs.google.com/document/d/1B_FS5pPHQXtO1_Igt1QsXSiE1Mu_TOJI2GMhciwpkxA/edit?usp=sharing"
-    }, {
-      "id": 6,
-      "date": "11-11-2011",
-      "url": "https://docs.google.com/document/d/1B_FS5pPHQXtO1_Igt1QsXSiE1Mu_TOJI2GMhciwpkxA/edit?usp=sharing"
-    }, {
-      "id": 7,
-      "date": "11-11-2011",
-      "url": "https://docs.google.com/document/d/1B_FS5pPHQXtO1_Igt1QsXSiE1Mu_TOJI2GMhciwpkxA/edit?usp=sharing"
-    }];
+import File from './file/File';
+import FileLoader from './file-loader/FileLoader';
+import OperationsBar from './operations-bar/OperationsBar';
+
+
+class FileList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.goToDrive = this.goToDrive.bind(this);
+    this.fetchFiles = this.fetchFiles.bind(this);
+
   }
 
-  render() {
+  componentDidMount(){
+    const { fetchFileList } = this.props;
+    fetchFileList();
+}
+
+
+  goToDrive(){
+    const { clearFileList } = this.props;
+    clearFileList();
+  }
+
+  fetchFiles() { this.props.fetchFileList() }
+
+  render()
+  {
+    const onClickFile = this.goToDrive;
     return (
-      <ul>
-        {this.files.map(function (listValue) {
-          return <File key={listValue.id} date={listValue.date} id={listValue.id} url={listValue.url}/>
-        })}
-      </ul>
+      <div>
+        <FileLoader/>
+        <OperationsBar/>
+        <div className="file-list">
+          <div onClick={this.fetchFiles}>{lang.buttons.refresh}</div>
+          <div style={ this.props.isLoading ? loadingStyle : {} }>
+            <ul style={{padding: '0px'}}>
+              {this.props.files.map(function (listValue) {
+                return <File key={listValue.id}
+                             createDate={listValue.createDate}
+                             subject={listValue.subject}
+                             content={listValue.content}
+                             id={listValue.id}
+                             url={listValue.url}
+                             onClick={onClickFile}/>
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
     )
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
+  const { files } = state.fileListReducer;
     return {
-      fileList: state.fileList
+      files: files
     };
   }
 
 
-function mapDispatchToProps(dispatch) {
-    return {
-      actions: bindActionCreators(actions, dispatch)
-    };
-  }
+const mapDispatchToProps = (dispatch) => ({
+      clearFileList: () => dispatch(actions.clearFileList()),
+      fetchFileList: () => dispatch(actions.fetchFileList())
+});
 
-
-  export default connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FuelSavingsPage);
+)(FileList);

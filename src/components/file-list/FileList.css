@@ -1,0 +1,10 @@
+.file-list {
+  min-width: 500px;
+  background-color: lightgray;
+}
+
+.file-list .loading {
+  background-color: lightgray;
+}
+
+

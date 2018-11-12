@@ -1,0 +1,13 @@
+.file-loader {
+  height: 50px;
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.file-loader .border-frame {
+  border: dotted 1px #9b9b9b;
+  border-radius: 3px;
+  padding:10px;
+}
+

@@ -1,0 +1,40 @@
+.file {
+  border-radius: 3px;
+  background-color: white;
+  border: dotted 1px grey;
+  min-height: 50px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.file .drive-btn {
+  background-color: orange;
+  width:80px;
+  min-height: 20px;
+  border-radius: 3px;
+  margin-left: auto;
+}
+
+.file .file-description {
+  font-size: 14px;
+}
+
+.file .subject {
+  background-color: orange;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+
+.file .createDate {
+  font-size: 14px;
+  color: lightgray;
+  margin-left: auto;
+}
+
+.file .row {
+  display: flex;
+}

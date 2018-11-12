@@ -1,0 +1,16 @@
+.my-files-page {
+  width: 900px;
+}
+.my-files-page .my-studies-column{
+  width: 300px;
+  min-height: 600px;
+  display: inline-block;
+  border: rgba(155, 155, 155, 0.23) solid 1px;
+  vertical-align: top;
+  ;
+}
+.my-files-page .files-column{
+  width: 500px;
+  display: inline-block;
+  background-color: gold;
+}
