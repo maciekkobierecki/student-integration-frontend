@@ -18,24 +18,29 @@ const ROUTE={
 }
 
 const NAV_OPTIONS={
-  FILE_LIST: 'Lista plików',
+  FILE_LIST: 'Moje studia',
+  EXPLORE_SUBJECTS: 'Katalog przedmiotów',
+  CREATE_GROUP: 'Utwórz grupę'
 }
 
 
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="app">
         <div className="navbar">
-          <Link to="/" className="option">Home</Link>
           <Link to="/file-list" className="option">{NAV_OPTIONS.FILE_LIST}</Link>
+          <Link to="/" className="option">{NAV_OPTIONS.EXPLORE_SUBJECTS}</Link>
+          <Link to="/" className="option">{NAV_OPTIONS.CREATE_GROUP}</Link>
         </div>
-        <Switch>
-          <Route exact path={ROUTE.HOME} component={HomePage} />
-          <Route path={ROUTE.FILE_LIST} component={MyFilesPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
+        <div className="page-content">
+          <Switch>
+            <Route exact path={ROUTE.HOME} component={HomePage} />
+            <Route path={ROUTE.FILE_LIST} component={MyFilesPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
         </div>
+      </div>
     );
   }
 }

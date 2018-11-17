@@ -18,8 +18,9 @@ class FileList extends React.Component {
   }
 
   componentDidMount(){
+    debugger;
     const { fetchFileList } = this.props;
-    fetchFileList();
+    fetchFileList(1);
 }
 
 
@@ -68,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
       clearFileList: () => dispatch(actions.clearFileList()),
-      fetchFileList: () => dispatch(actions.fetchFileList())
+      fetchFileList: (subjectId) => dispatch(actions.fetchFileList(subjectId))
 });
 
 export default connect(

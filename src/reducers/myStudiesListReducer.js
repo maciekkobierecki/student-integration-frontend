@@ -3,12 +3,11 @@ import initalState from './initialState';
 
 //TODO: use Immutable
 export default function myStudiesListReducer(state = initalState, action){
-  debugger;
   switch(action.type){
     case types.FETCH_MY_STUDIES_LIST_REQUESTED:
       return {...state, isLoading: true };
     case types.FETCH_MY_STUDIES_LIST_DONE:
-      return {...state, files: action.data };
+      return {...state, academies: action.data };
     case types.FETCH_MY_STUDIES_LIST_FAILED:
       return {...state, isLoading: false, isError: true };
     case types.ACADEMY_ITEM_SELECTED:

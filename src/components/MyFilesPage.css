@@ -1,5 +1,5 @@
 .my-files-page {
-  width: 900px;
+  height: inherit;
 }
 .my-files-page .my-studies-column{
   width: 300px;
@@ -7,10 +7,11 @@
   display: inline-block;
   border: rgba(155, 155, 155, 0.23) solid 1px;
   vertical-align: top;
-  ;
+  height: inherit;
 }
 .my-files-page .files-column{
   width: 500px;
   display: inline-block;
-  background-color: gold;
+  height: inherit;
+
 }

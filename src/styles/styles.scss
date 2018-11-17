@@ -5,15 +5,15 @@ $vin-red: #ff0000;
 
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
-
+html{
+  height: 100%;
+}
 /* Styles */
 body {
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
   margin: 0 auto;
+  height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;

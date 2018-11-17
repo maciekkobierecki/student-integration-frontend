@@ -1,5 +1,6 @@
 .my-studies-list{
   padding: 10px;
+  min-height: 100%;
 }
 
 .academy{
@@ -11,7 +12,9 @@
   text-align: center;
   border-bottom: #cbcbcb solid 1px;
 }
-
+.list-info-label{
+  text-align: left;
+}
 .list-option:hover{
   background-color: #bfbfbf;
 }

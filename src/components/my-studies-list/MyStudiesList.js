@@ -12,7 +12,6 @@ class MyStudiesList extends React.Component {
 
 
   componentDidMount(){
-    debugger;
     const { fetchMyStudiesList } = this.props;
     fetchMyStudiesList();
   }
@@ -39,11 +38,13 @@ class MyStudiesList extends React.Component {
     var selectedSubject = this.props.selectedSubject;
     return (
       <div className="my-studies-list">
-        <div>
+        <div className="list-info-label">
           Moje studia
         </div>
         <ul>
-          Uczelnia
+          <div className="list-info-label">
+            Uczelnia
+          </div>
           {data.map( academy  => (
             <li key={academy.id} style={ selectedAcademy.id === academy.id ? {backgroundColor: '#e1e1e1'} : {}}>
                 <div className="list-option" onClick={()=>this.academySelected(academy)}>
@@ -55,7 +56,9 @@ class MyStudiesList extends React.Component {
 
         { selectedAcademy.id && (
           <ul>
-            Kierunek
+            <div className="list-info-label">
+              Kierunek
+            </div>
             {selectedAcademy.semesters.map(semester => (
               <li key={semester.id} style={ selectedSemester.id === semester.id ? {backgroundColor: '#e1e1e1'} : {}}>
                 <div className="list-option" onClick={()=>this.semesterSelected(semester)}>
@@ -68,7 +71,9 @@ class MyStudiesList extends React.Component {
 
         { selectedSemester.id && (
           <ul>
-            Przedmiot
+            <div className="list-info-label">
+              Przedmiot
+            </div>
             {selectedSemester.subjects.map(subject => (
               <li key={subject.id} style={ selectedSubject.id === subject.id ? {backgroundColor: '#e1e1e1'} : {}}>
                 <div className="list-option"  onClick={()=>this.subjectSelected(subject)}>

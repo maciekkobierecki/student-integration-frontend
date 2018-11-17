@@ -28,12 +28,12 @@ export function getDataFailed(error){
 }
 
 
-export function fetchFileList(){
+export function fetchFileList(subjectId){
   return dispatch => {
-
+    debugger;
     dispatch(getDataRequested());
 
-    fetch('http://localhost:8080/files')
+    fetch(`http://localhost:8080/files/${subjectId}`)
       .then(response => response.json())
       .then(data => {
         dispatch(getDataDone(data));
