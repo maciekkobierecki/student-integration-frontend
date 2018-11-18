@@ -1,10 +1,10 @@
 .file-list {
-  min-width: 500px;
-  background-color: lightgray;
+  width:inherit;
+  height: inherit;
 }
 
 .file-list .loading {
-  background-color: lightgray;
+  opacity: 0.5;
 }
 
 

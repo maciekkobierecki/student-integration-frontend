@@ -1,5 +1,5 @@
 /* eslint-disable import/no-named-as-default */
-import {Link, Route, Switch} from "react-router-dom";
+import {Link, Route, Switch, withRouter} from "react-router-dom";
 
 import HomePage from "./HomePage";
 import NotFoundPage from "./NotFoundPage";
@@ -8,6 +8,9 @@ import React from "react";
 import {hot} from "react-hot-loader";
 import "./App.css";
 import MyFilesPage from "./MyFilesPage";
+import {Spinner} from "react-redux-spinner";
+import * as actions from "../actions/navActions";
+import connect from "react-redux/es/connect/connect";
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -17,7 +20,7 @@ const ROUTE={
   HOME: '/'
 }
 
-const NAV_OPTIONS={
+export const TABS={
   FILE_LIST: 'Moje studia',
   EXPLORE_SUBJECTS: 'Katalog przedmiotów',
   CREATE_GROUP: 'Utwórz grupę'
@@ -25,13 +28,19 @@ const NAV_OPTIONS={
 
 
 class App extends React.Component {
+  tabSelected(selectedTabName){
+    const { tabSelected } = this.props;
+    tabSelected(selectedTabName);
+  }
+
   render() {
     return (
       <div className="app">
+        <Spinner/>
         <div className="navbar">
-          <Link to="/file-list" className="option">{NAV_OPTIONS.FILE_LIST}</Link>
-          <Link to="/" className="option">{NAV_OPTIONS.EXPLORE_SUBJECTS}</Link>
-          <Link to="/" className="option">{NAV_OPTIONS.CREATE_GROUP}</Link>
+          <Link to="/file-list" className="option" onClick={this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
+          <Link to="/" className="option" onClick={this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
+          <Link to="/" className="option" onClick={this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
         </div>
         <div className="page-content">
           <Switch>
@@ -46,7 +55,23 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  children: PropTypes.element
+  currentTab: PropTypes.string,
+  tabSelected: PropTypes.func
+
 };
 
-export default hot(module)(App);
+const mapStateToProps = (state) => {
+  const { currentTab } = state.appReducer;
+  return {
+    currentTab: currentTab
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  tabSelected: (selectedTabName) => dispatch(actions.tabSelected(selectedTabName))
+});
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(hot(module)(App)));

@@ -1,6 +1,12 @@
 import * as types from '../constants/actionTypes';
 import fetch from 'isomorphic-fetch';
 import * as fileListActions from './fileListActions';
+import {
+  pendingTask,
+  begin,
+  end,
+  endAll
+} from 'react-redux-spinner';
 
 export function getDataRequested(){
   return {
@@ -30,28 +36,39 @@ export function fetchMyStudiesList(){
       .then(response => response.json())
       .then(data => {
         dispatch(getDataDone(data));
-      })
+        dispatch(academyItemSelected(data[0])); })
       .catch(error => {
         dispatch(getDataFailed(error));
       })
+
   }
+}
+
+export function academyItemSelectedAction(selectedItem){
+  return {
+    type: types.ACADEMY_ITEM_SELECTED,
+    selectedItem: selectedItem
+  };
 }
 
 export function academyItemSelected(selectedItem){
   return dispatch => {
-    dispatch({
-      type: types.ACADEMY_ITEM_SELECTED,
-      selectedItem: selectedItem
-    })
+    dispatch(academyItemSelectedAction(selectedItem));
+    dispatch(semesterItemSelected(selectedItem.semesters[0]))
   }
+}
+
+export function semesterItemSelectedAction(selectedItem){
+ return {
+   type: types.SEMESTER_ITEM_SELECTED,
+   selectedItem: selectedItem
+ };
 }
 
 export function semesterItemSelected(selectedItem){
   return dispatch => {
-    dispatch({
-      type: types.SEMESTER_ITEM_SELECTED,
-      selectedItem: selectedItem
-    })
+    dispatch(semesterItemSelectedAction(selectedItem));
+    dispatch(subjectItemSelected(selectedItem.subjects[0]));
   }
 }
 
@@ -64,7 +81,6 @@ export function subjectItemSelectedAction(selectedItem){
 
 export function subjectItemSelected(selectedItem){
   return dispatch => {
-    debugger;
     dispatch(subjectItemSelectedAction(selectedItem));
     dispatch(fileListActions.fetchFileList(selectedItem.id));
   }

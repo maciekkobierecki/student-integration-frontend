@@ -8,6 +8,15 @@ import File from './file/File';
 import FileLoader from './file-loader/FileLoader';
 import OperationsBar from './operations-bar/OperationsBar';
 
+import {
+  Spinner, // The React component
+  pendingTask, // The action key for modifying loading state
+  begin, // The action value if a "long" running task begun
+  end, // The action value if a "long" running task ended
+  endAll // The action value if all running tasks must end
+} from 'react-redux-spinner';
+import {withRouter} from "react-router-dom";
+
 
 class FileList extends React.Component {
   constructor(props) {
@@ -18,7 +27,7 @@ class FileList extends React.Component {
   }
 
   componentDidMount(){
-    debugger;
+
     const { fetchFileList } = this.props;
     fetchFileList(1);
 }
@@ -35,12 +44,12 @@ class FileList extends React.Component {
   {
     const onClickFile = this.goToDrive;
     return (
-      <div>
+      <div className="file-list">
+        <div className={ this.props.isLoading ? "loading": ""}>
         <FileLoader/>
         <OperationsBar/>
-        <div className="file-list">
+        <div>
           <div onClick={this.fetchFiles}>{lang.buttons.refresh}</div>
-          <div style={ this.props.isLoading ? loadingStyle : {} }>
             <ul style={{padding: '0px'}}>
               {this.props.files.map(function (listValue) {
                 return <File key={listValue.id}
@@ -60,9 +69,10 @@ class FileList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { files } = state.fileListReducer;
+  const { files, filesLoading } = state.fileListReducer;
     return {
-      files: files
+      files: files,
+      isLoading: filesLoading
     };
   }
 
@@ -72,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
       fetchFileList: (subjectId) => dispatch(actions.fetchFileList(subjectId))
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(FileList);
+)(FileList));

@@ -7,11 +7,11 @@ export default function fileListReducer(state = initalState, action){
     case types.CLEAR_FILE_LIST:
       return {...state, files: []};
     case types.FETCH_FILE_LIST_REQUESTED:
-      return {...state, isLoading: true };
+      return {...state, filesLoading: true };
     case types.FETCH_FILE_LIST_DONE:
-      return {...state, files: action.data };
+      return {...state, filesLoading: false, files: action.data };
     case types.FETCH_FILE_LIST_FAILED:
-      return {...state, isLoading: false, isError: true };
+      return {...state, filesLoading: false, isError: true };
     default:
       return state;
   }
