@@ -38,9 +38,15 @@ class App extends React.Component {
       <div className="app">
         <Spinner/>
         <div className="navbar">
-          <Link to="/file-list" className="option" onClick={this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
-          <Link to="/" className="option" onClick={this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
-          <Link to="/" className="option" onClick={this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+          <div className={"option" + (this.props.currentTab === TABS.FILE_LIST ? " selected" : "")}>
+            <Link to="/file-list" onClick={() => this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
+          </div>
+          <div className={"option" + (this.props.currentTab === TABS.EXPLORE_SUBJECTS ? " selected" : "")}>
+            <Link to="/" onClick={() => this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
+          </div>
+          <div className={"option" + (this.props.currentTab === TABS.CREATE_GROUP ? " selected" : "")}>
+            <Link to="/" onClick={() => this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+          </div>
         </div>
         <div className="page-content">
           <Switch>
@@ -61,9 +67,9 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { currentTab } = state.appReducer;
+  const { currentTabName } = state.appReducer;
   return {
-    currentTab: currentTab
+    currentTab: currentTabName
   };
 };
 

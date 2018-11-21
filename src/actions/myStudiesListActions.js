@@ -81,6 +81,7 @@ export function subjectItemSelectedAction(selectedItem){
 
 export function subjectItemSelected(selectedItem){
   return dispatch => {
+    debugger;
     dispatch(subjectItemSelectedAction(selectedItem));
     dispatch(fileListActions.fetchFileList(selectedItem.id));
   }

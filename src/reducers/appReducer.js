@@ -4,7 +4,7 @@ import initalState from './initialState';
 export default function appReducer(state = initalState, action){
   switch(action.type){
     case types.TAB_CHANGED:
-      return {...state, currentTab: action.currentTab};
+      return {...state, currentTabName: action.currentTabName};
     default:
       return state;
   }

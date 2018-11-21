@@ -21,6 +21,7 @@ export function getDataRequested(){
 }
 
 export function getDataDone(data){
+  debugger;
   return {
     type: types.FETCH_FILE_LIST_DONE,
     [ pendingTask ]: end,
@@ -29,6 +30,7 @@ export function getDataDone(data){
 }
 
 export function getDataFailed(error){
+  debugger;
   return {
     type: types.FETCH_FILE_LIST_FAILED,
     [ pendingTask ]: end,
@@ -40,7 +42,6 @@ export function getDataFailed(error){
 export function fetchFileList(subjectId){
   return dispatch => {
     dispatch(getDataRequested());
-    debugger;
     fetch(`http://localhost:8080/files/${subjectId}`)
       .then(response => response.json())
       .then(data => {
@@ -49,5 +50,31 @@ export function fetchFileList(subjectId){
       .catch(error => {
         dispatch(getDataFailed(error));
       })
+  }
+}
+
+function fileEditAction(fileId){
+  return {
+    type: types.FILE_EDIT,
+    fileId: fileId
+  }
+}
+
+export function fileEdit(fileId){
+  return dispatch => {
+    dispatch(fileEditAction(fileId));
+  }
+}
+
+function fileEditDoneAction(fileId){
+  return {
+    type: types.FILE_EDIT_DONE,
+    fileId: fileId
+  }
+}
+
+export function fileEditDone(fileId){
+  return dispatch => {
+    dispatch(fileEditDoneAction(fileId));
   }
 }
