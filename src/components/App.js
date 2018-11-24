@@ -67,7 +67,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { currentTabName } = state.appReducer;
+  const { currentTabName } = state.app;
   return {
     currentTab: currentTabName
   };

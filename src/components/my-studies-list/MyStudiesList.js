@@ -97,7 +97,7 @@ class MyStudiesList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { academies, selectedAcademy, selectedSemester, selectedSubject } = state.myStudiesListReducer;
+  const { academies, selectedAcademy, selectedSemester, selectedSubject } = state.myStudiesList;
   return {
     academies: academies,
     selectedAcademy: selectedAcademy,

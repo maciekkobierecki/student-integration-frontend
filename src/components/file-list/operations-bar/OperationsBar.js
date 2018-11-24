@@ -16,15 +16,18 @@ class OperationsBar extends React.Component {
 
 
   render(){
+    debugger;
+    const {criteria, onFileCreate, onFileUpload, onSearch} = this.props;
+    const searchValue = this.refs.criteria ? this.refs.criteria.value : null;
     return (
       <div>
         <div className="operations-bar">
-          <div className="operation">{OPERTAION.CREATE_DOC}</div>
-          <div className="operation">{OPERTAION.ADD_FILE}</div>
+          <div className="operation" onClick={onFileCreate}>{OPERTAION.CREATE_DOC}</div>
+          <div className="operation" onClick={onFileUpload}>{OPERTAION.ADD_FILE}</div>
           <div className="search-form">
-            <form>
+            <form onSubmit={ (e) => onSearch(e, searchValue)}>
               <label>
-                <input type="text" name="name" />
+                <input type="text" name="name" ref="criteria" defaultValue={criteria} />
               </label>
               <div className="search-btn">
                 szukaj
@@ -38,6 +41,7 @@ class OperationsBar extends React.Component {
 }
 
 OperationsBar.propTypes = {
+  criteria: PropTypes.string.isRequired,
   onFileCreate: PropTypes.func.isRequired,
   onFileUpload: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired

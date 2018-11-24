@@ -2,8 +2,7 @@ import * as types from './../constants/actionTypes'
 import initalState from './initialState';
 
 //TODO: use Immutable
-export default function fileListReducer(state = initalState, action){
-  debugger;
+export default function fileList(state = initalState, action){
   switch(action.type){
     case types.CLEAR_FILE_LIST:
       return {...state, file: []};
@@ -12,11 +11,13 @@ export default function fileListReducer(state = initalState, action){
     case types.FETCH_FILE_LIST_DONE:
       return {...state, filesLoading: false, files: action.data };
     case types.FETCH_FILE_LIST_FAILED:
-      return {...state, filesLoading: false, isError: true };
+      return {...state, files: [], filesLoading: false, isError: true };
     case types.FILE_EDIT:
       return {...state, editingFileId: action.fileId };
     case types.FILE_EDIT_DONE:
       return {...state, editingFileId: null };
+    case types.SEARCH_FILE:
+      return {...state, criteria: action.criteria };
     default:
       return state;
   }

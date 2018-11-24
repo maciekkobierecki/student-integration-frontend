@@ -9,5 +9,6 @@ export default {
   academiesLoading: true,
   selectedAcademy: {},
   selectedSemester: {},
-  selectedSubject: {}
+  selectedSubject: {},
+  searchCriteria: "wyszukaj"
 };

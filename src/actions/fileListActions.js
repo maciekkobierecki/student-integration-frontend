@@ -21,7 +21,6 @@ export function getDataRequested(){
 }
 
 export function getDataDone(data){
-  debugger;
   return {
     type: types.FETCH_FILE_LIST_DONE,
     [ pendingTask ]: end,
@@ -30,7 +29,6 @@ export function getDataDone(data){
 }
 
 export function getDataFailed(error){
-  debugger;
   return {
     type: types.FETCH_FILE_LIST_FAILED,
     [ pendingTask ]: end,
@@ -39,10 +37,25 @@ export function getDataFailed(error){
 }
 
 
-export function fetchFileList(subjectId){
-  return dispatch => {
+export function fetchFileList(){
+  return (dispatch, getState) => {
+    debugger;
     dispatch(getDataRequested());
-    fetch(`http://localhost:8080/files/${subjectId}`)
+    var state = getState();
+    var subjectId = state.myStudiesList.selectedSubject.id;
+    var criteria = state.fileList.criteria;
+    fetch(`http://localhost:8080/files`,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(
+          {
+            subjectId:subjectId,
+            criteria:criteria
+          })
+      })
       .then(response => response.json())
       .then(data => {
         dispatch(getDataDone(data));
@@ -76,5 +89,61 @@ function fileEditDoneAction(fileId){
 export function fileEditDone(fileId){
   return dispatch => {
     dispatch(fileEditDoneAction(fileId));
+  }
+}
+
+//document create
+export function createDocumentRequested(){
+  return {
+    type: types.CREATE_DOCUMENT_REQUESTED,
+    [ pendingTask ]: begin
+  }
+}
+
+export function createDocumentDone(data){
+  return {
+    type: types.CREATE_DOCUMENT_DONE,
+    [ pendingTask ]: end,
+    data: data
+  }
+}
+
+export function createDocumentFailed(error){
+  return {
+    type: types.CREATE_DOCUMENT_DONE,
+    [ pendingTask ]: end,
+    error: error
+  }
+}
+
+export function createDocument(){
+  return (dispatch, getState) => {
+    dispatch(createDocumentRequested());
+    var state = getState();
+    var subjectId = state.myStudiesList.selectedSubject.id;
+    fetch(`http://localhost:8080/files/${subjectId}`)
+      .then(fetchFileList())
+      .catch(error => {
+        dispatch(createDocumentFailed(error));
+      })
+  }
+}
+
+//file upload
+export function uploadFile(){
+
+}
+
+//fileSearch
+export function searchFileAction(criteria){
+  return {
+    type: types.SEARCH_FILE,
+    criteria: criteria
+  }
+}
+export function searchFile(criteria){
+  return dispatch => {
+    dispatch(searchFileAction(criteria));
+    dispatch(fetchFileList());
   }
 }
