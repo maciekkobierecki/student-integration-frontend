@@ -4,6 +4,11 @@ export const LOCATION_CHANGE='@@router/LOCATION_CHANGE';
 //app
 export const TAB_CHANGED='TAB_CHANGED';
 
+export const AUTH_REUQESTED = 'AUTH_REUQESTED';
+export const AUTH_DONE = 'AUTH_DONE';
+export const AUTH_FAILED = 'AUTH_FAILED';
+
+
 //fileList
 export const FETCH_FILE_LIST = 'FETCH_FILE_LIST';
 export const FETCH_FILE_LIST_REQUESTED = 'FETCH_FILE_LIST_REQUESTED';

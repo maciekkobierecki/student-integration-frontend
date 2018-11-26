@@ -8,5 +8,7 @@ export default {
   academiesLoading: true,
   selectedAcademy: {},
   selectedSemester: {},
-  selectedSubject: {}
+  selectedSubject: {},
+  isAuthenticated: false,
+  appId: 2108929732752092
 };

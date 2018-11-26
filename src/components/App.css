@@ -6,6 +6,12 @@
   height: inherit;
 }
 
+.login-screen{
+  text-align: center;
+  height: inherit;
+  margin-top:200px;
+}
+
 .navbar {
   position: -webkit-sticky;
   position: sticky;

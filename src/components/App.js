@@ -9,8 +9,10 @@ import {hot} from "react-hot-loader";
 import "./App.css";
 import MyFilesPage from "./MyFilesPage";
 import {Spinner} from "react-redux-spinner";
-import * as actions from "../actions/navActions";
+import * as actions from "../actions/appActions";
 import connect from "react-redux/es/connect/connect";
+import FacebookLogin from 'react-facebook-login';
+
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -33,37 +35,60 @@ class App extends React.Component {
     tabSelected(selectedTabName);
   }
 
+  responseFacebook(data){
+    debugger;
+  }
+
   render() {
-    return (
-      <div className="app">
-        <Spinner/>
-        <div className="navbar">
-          <Link to="/file-list" className="option" onClick={this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
-          <Link to="/" className="option" onClick={this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
-          <Link to="/" className="option" onClick={this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+    if(this.props.isAuthenticated) {
+      return (
+        <div className="app">
+          <Spinner/>
+          <div className="navbar">
+            <Link to="/file-list" className="option" onClick={this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
+            <Link to="/" className="option"
+                  onClick={this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
+            <Link to="/" className="option" onClick={this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+          </div>
+          <div className="page-content">
+            <Switch>
+              <Route exact path={ROUTE.HOME} component={HomePage}/>
+              <Route path={ROUTE.FILE_LIST} component={MyFilesPage}/>
+              <Route component={NotFoundPage}/>
+            </Switch>
+          </div>
         </div>
-        <div className="page-content">
-          <Switch>
-            <Route exact path={ROUTE.HOME} component={HomePage} />
-            <Route path={ROUTE.FILE_LIST} component={MyFilesPage} />
-            <Route component={NotFoundPage} />
-          </Switch>
+      );
+    }else{
+      return (
+        <div className="login-screen">
+          <FacebookLogin appId={this.props.appId}
+                         autoLoad={false}
+                         language="en_US"
+                         scope="public_profile,email"
+                         callback={this.responseFacebook}
+                         fields="name, email, picture"
+                         className="facebook-login"
+                         buttonText="Login With Facebook"/>
         </div>
-      </div>
-    );
+      )
+    }
   }
 }
 
 App.propTypes = {
   currentTab: PropTypes.string,
+  isAuthenticated: PropTypes.bool.isRequired,
+  appId: PropTypes.number,
   tabSelected: PropTypes.func
-
 };
 
 const mapStateToProps = (state) => {
-  const { currentTab } = state.appReducer;
+  const { currentTab, isAuthenticated, appId } = state.appReducer;
   return {
-    currentTab: currentTab
+    currentTab: currentTab,
+    isAuthenticated: isAuthenticated,
+    appId: appId
   };
 };
 
