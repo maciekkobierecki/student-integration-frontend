@@ -4,7 +4,8 @@ export const lang={
     'uploadDate':'Data udostępnienia'
   },
   'buttons':{
-    'goToDrive':'Edytuj',
+    'goToDrive':'Otwórz',
+    'edit': 'Edytuj',
     'refresh': 'Odśwież'
   }
 }

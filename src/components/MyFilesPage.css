@@ -1,7 +1,9 @@
 .my-files-page {
   height: inherit;
 }
+
 .my-files-page .my-studies-column{
+  background-color: white;
   width: 300px;
   min-height: 600px;
   display: inline-block;
@@ -10,6 +12,7 @@
   height: inherit;
 }
 .my-files-page .files-column{
+  background-color: white;
   width: 600px;
   display: inline-block;
   height: inherit;

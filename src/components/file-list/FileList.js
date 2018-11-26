@@ -1,64 +1,59 @@
 import React from 'react';
 import * as actions from "../../actions/fileListActions";
 import connect from "react-redux/es/connect/connect";
-import { lang } from '../../constants/translations';
 import './FileList.css';
+import PropTypes from 'prop-types';
 
 import File from './file/File';
-import FileLoader from './file-loader/FileLoader';
 import OperationsBar from './operations-bar/OperationsBar';
-
-import {
-  Spinner, // The React component
-  pendingTask, // The action key for modifying loading state
-  begin, // The action value if a "long" running task begun
-  end, // The action value if a "long" running task ended
-  endAll // The action value if all running tasks must end
-} from 'react-redux-spinner';
 import {withRouter} from "react-router-dom";
 
 
 class FileList extends React.Component {
   constructor(props) {
     super(props);
-    this.goToDrive = this.goToDrive.bind(this);
-    this.fetchFiles = this.fetchFiles.bind(this);
+    this.fileSearch = this.fileSearch.bind(this);
+  }
+
+  fileSearch(e, criteria)
+  {
+    debugger;
+    e.preventDefault();
+    this.props.searchFile(criteria);
+  }
+
+  createDocument(){
 
   }
 
-  componentDidMount(){
+  fileUpload(){
 
-    const { fetchFileList } = this.props;
-    fetchFileList(1);
-}
-
-
-  goToDrive(){
-    const { clearFileList } = this.props;
-    clearFileList();
   }
-
-  fetchFiles() { this.props.fetchFileList() }
 
   render()
   {
-    const onClickFile = this.goToDrive;
+    debugger;
+    const onFileEdit = this.props.fileEdit;
+    const onFileEditDone = this.props.fileEditDone;
+    const onFileOpen = this.props.uploadFile;
+    const { editingFileId, searchCriteria, isLoading } = this.props;
     return (
       <div className="file-list">
-        <div className={ this.props.isLoading ? "loading": ""}>
-        <FileLoader/>
-        <OperationsBar/>
+        <div className={ isLoading ? "loading": ""}>
+        <OperationsBar onFileCreate={this.createDocument} onFileUpload={this.fileUpload} onSearch={this.fileSearch} criteria={searchCriteria}/>
         <div>
-          <div onClick={this.fetchFiles}>{lang.buttons.refresh}</div>
-            <ul style={{padding: '0px'}}>
+            <ul>
               {this.props.files.map(function (listValue) {
                 return <File key={listValue.id}
-                             createDate={listValue.createDate}
-                             subject={listValue.subject}
-                             content={listValue.content}
                              id={listValue.id}
+                             editing={listValue.id === editingFileId}
+                             createDate={listValue.createDate}
+                             name={listValue.name}
+                             content={listValue.content}
                              url={listValue.url}
-                             onClick={onClickFile}/>
+                             onFileOpen={onFileOpen}
+                             onFileEdit={onFileEdit}
+                             onFileEditDone={onFileEditDone}/>
               })}
             </ul>
           </div>
@@ -68,18 +63,39 @@ class FileList extends React.Component {
   }
 }
 
+FileList.propTypes = {
+  files: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  editingFileId: PropTypes.string,
+  searchCriteria: PropTypes.string.isRequired,
+  clearFileList: PropTypes.func.isRequired,
+  fetchFileList: PropTypes.func.isRequired,
+  fileEdit: PropTypes.func.isRequired,
+  fileEditDone: PropTypes.func.isRequired,
+  createDocument: PropTypes.func.isRequired,
+  uploadFile: PropTypes.func.isRequired,
+  searchFile: PropTypes.func.isRequired
+};
+
 const mapStateToProps = (state) => {
-  const { files, filesLoading } = state.fileListReducer;
+  const { files, filesLoading, editingFileId, searchCriteria } = state.fileList;
     return {
       files: files,
-      isLoading: filesLoading
+      isLoading: filesLoading,
+      editingFileId: editingFileId,
+      searchCriteria: searchCriteria
     };
-  }
+}
 
 
 const mapDispatchToProps = (dispatch) => ({
       clearFileList: () => dispatch(actions.clearFileList()),
-      fetchFileList: (subjectId) => dispatch(actions.fetchFileList(subjectId))
+      fetchFileList: (criteria) => dispatch(actions.fetchFileList(criteria)),
+      fileEdit: (fileId) => dispatch(actions.fileEdit(fileId)),
+      fileEditDone: (fileId) => dispatch(actions.fileEditDone(fileId)),
+      createDocument: () => dispatch(actions.createDocument()),
+      uploadFile: () => dispatch(actions.uploadFile()),
+      searchFile: (criteria) => dispatch(actions.searchFile(criteria))
 });
 
 export default withRouter(connect(

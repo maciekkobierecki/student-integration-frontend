@@ -1,5 +1,6 @@
 #app {
   height: inherit;
+  background-color: #f1f1f1;
 }
 
 .app{
@@ -17,23 +18,37 @@
   position: sticky;
   top: 0;
   background-color: orange;
-  padding: 10px;
   display: flex;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .navbar .option {
   min-width: 150px;
-  height: 20px;
+  min-height: 24px;
+  padding-left: 5px;
+  padding-right: 5px;
   font-size: 18px;
+  margin: 5px;
   text-align: center;
   border-radius: 3px;
-  margin-bottom: 3px;
   vertical-align: middle;
   display: inline-block;
   text-decoration: none;
-  color: #686868;
 }
+
+.navbar .option:hover{
+  background-color: #f49f00;
+}
+
+.navbar .option .selected {
+  background-color: grey;
+}
+
+a{
+  text-decoration: none;
+  color: grey;
+}
+
 
 .page-content {
   text-align: center;

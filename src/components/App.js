@@ -78,15 +78,14 @@ class App extends React.Component {
 
 App.propTypes = {
   currentTab: PropTypes.string,
-  isAuthenticated: PropTypes.bool.isRequired,
-  appId: PropTypes.number,
   tabSelected: PropTypes.func
+
 };
 
 const mapStateToProps = (state) => {
-  const { currentTab, isAuthenticated, appId } = state.appReducer;
+  const { currentTabName, isAuthenticated, appId } = state.app;
   return {
-    currentTab: currentTab,
+    currentTab: currentTabName,
     isAuthenticated: isAuthenticated,
     appId: appId
   };

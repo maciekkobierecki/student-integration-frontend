@@ -1,7 +1,7 @@
 .file {
   border-radius: 3px;
   background-color: white;
-  border: dotted 1px grey;
+  border: 1px solid #e5e5e5;
   min-height: 50px;
   font-size: 20px;
   margin-bottom: 10px;
@@ -10,20 +10,71 @@
   margin-right: 10px;
 }
 
-.file .drive-btn {
+.file .edit{
+  padding-bottom: 0px;
+}
+
+.file .mdEdit{
   background-color: orange;
+}
+
+.file .edit-file-button{
+  margin-left: 10px;
+  margin-right: 4px;
+  color: lightgray;
+  font-size: 18px;
+}
+
+.file .edit-file-button:hover{
+  color: grey;
+  border-radius: 3px;
+}
+
+.file .drive-btn {
+  background-color: rgba(255, 165, 0, 0.43);
   width:80px;
   min-height: 20px;
-  border-radius: 3px;
   margin-left: auto;
+  border-radius: 3px;
 }
 
 .file .file-description {
   font-size: 14px;
+  text-align: left;
 }
 
-.file .subject {
-  background-color: orange;
+.file-edit-input {
+  height: 22px;
+  border-radius: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  width: 300px;
+  border: 1px solid black;
+}
+
+.apply-button {
+  color: limegreen;
+  font-size:30px;
+  text-align: right;
+}
+
+.apply-button:hover{
+  color: green;
+}
+
+.orange{
+  background-color: rgba(255, 165, 0, 0.43);
+}
+
+.file-edit-input:focus{
+  outline: none;
+}
+
+.file .name {
+  background-color: rgba(255, 165, 0, 0.43);
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 5px;

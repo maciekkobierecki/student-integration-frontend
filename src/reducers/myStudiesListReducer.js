@@ -2,8 +2,7 @@ import * as types from './../constants/actionTypes'
 import initalState from './initialState';
 
 //TODO: use Immutable
-export default function myStudiesListReducer(state = initalState, action){
-  debugger;
+export default function myStudiesList(state = initalState, action){
   switch(action.type){
     case types.FETCH_MY_STUDIES_LIST_REQUESTED:
       return {...state, academiesLoading: true };

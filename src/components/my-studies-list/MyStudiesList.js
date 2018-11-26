@@ -36,7 +36,6 @@ class MyStudiesList extends React.Component {
     var selectedAcademy = this.props.selectedAcademy;
     var selectedSemester = this.props.selectedSemester;
     var selectedSubject = this.props.selectedSubject;
-    debugger;
 
     return (
       <div className="my-studies-list">
@@ -98,8 +97,7 @@ class MyStudiesList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { academies, selectedAcademy, selectedSemester, selectedSubject } = state.myStudiesListReducer;
-  debugger;
+  const { academies, selectedAcademy, selectedSemester, selectedSubject } = state.myStudiesList;
   return {
     academies: academies,
     selectedAcademy: selectedAcademy,

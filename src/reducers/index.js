@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import fileListReducer from './fileListReducer';
-import myStudiesListReducer from './myStudiesListReducer';
-import appReducer from './appReducer';
+import fileList from './fileListReducer';
+import myStudiesList from './myStudiesListReducer';
+import app from './appReducer';
 import { pendingTasksReducer } from 'react-redux-spinner';
 
 const rootReducer = combineReducers({
-  fileListReducer,
-  myStudiesListReducer,
+  fileList: fileList,
+  myStudiesList: myStudiesList,
   pendingTasks: pendingTasksReducer,
-  appReducer
+  app: app
 });
 
 export default rootReducer;
