@@ -12,6 +12,7 @@ import {Spinner} from "react-redux-spinner";
 import * as actions from "../actions/appActions";
 import connect from "react-redux/es/connect/connect";
 import FacebookLogin from 'react-facebook-login';
+import GroupCreationPage from "./group-creation-page/GroupCreationPage";
 
 
 // This is a class-based component because the current
@@ -19,6 +20,7 @@ import FacebookLogin from 'react-facebook-login';
 // component at the top-level.
 const ROUTE={
   FILE_LIST:'/file-list',
+  CREATE_GROUP:'/create-group',
   HOME: '/'
 }
 
@@ -45,16 +47,17 @@ class App extends React.Component {
         <div className="app">
           <Spinner/>
           <div className="navbar">
-            <Link to="/file-list" className="option" onClick={this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
+            <Link to={ROUTE.FILE_LIST} className="option" onClick={this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
             <Link to="/" className="option"
                   onClick={this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
-            <Link to="/" className="option" onClick={this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+            <Link to={ROUTE.CREATE_GROUP} className="option" onClick={this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
           </div>
           <div className="page-content">
             <Switch>
               <Route exact path={ROUTE.HOME} component={HomePage}/>
               <Route path={ROUTE.FILE_LIST} component={MyFilesPage}/>
               <Route component={NotFoundPage}/>
+              <Route path={ROUTE.CREATE_GROUP} component={GroupCreationPage}/>
             </Switch>
           </div>
         </div>
