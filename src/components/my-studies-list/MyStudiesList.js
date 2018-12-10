@@ -32,11 +32,12 @@ class MyStudiesList extends React.Component {
   }
 
   render(){
-    var data = this.props.academies;
-    var selectedAcademy = this.props.selectedAcademy;
-    var selectedSemester = this.props.selectedSemester;
-    var selectedSubject = this.props.selectedSubject;
+    const data = this.props.academies;
+    const selectedAcademy = this.props.selectedAcademy;
+    const selectedSemester = this.props.selectedSemester;
+    const selectedSubject = this.props.selectedSubject;
 
+    debugger;
     return (
       <div className="my-studies-list">
         <div className="list-info-label">

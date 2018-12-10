@@ -13,9 +13,11 @@ export default function fileList(state = initalState, action){
     case types.FETCH_FILE_LIST_FAILED:
       return {...state, files: [], filesLoading: false, isError: true };
     case types.FILE_EDIT:
-      return {...state, editingFileId: action.fileId };
-    case types.FILE_EDIT_DONE:
-      return {...state, editingFileId: null };
+      return {...state, editingFile: action.file };
+    case types.FILE_EDIT_APPROVED_DONE:
+      return {...state, editingFile: null };
+    case types.FILE_EDIT_APPROVED_FAILED:
+      return {...state, editingFile: null };
     case types.SEARCH_FILE:
       return {...state, criteria: action.criteria };
     default:

@@ -16,7 +16,6 @@ class OperationsBar extends React.Component {
 
 
   render(){
-    debugger;
     const {criteria, onFileCreate, onFileUpload, onSearch} = this.props;
     const searchValue = this.refs.criteria ? this.refs.criteria.value : null;
     return (

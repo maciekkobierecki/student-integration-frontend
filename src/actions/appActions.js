@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes';
 import {begin, end, pendingTask} from "react-redux-spinner";
+import axios from '../axios';
 
 
 export function tabSelectedAction(selectedTabName){
@@ -16,42 +17,62 @@ export function tabSelected(selectedTabName){
 }
 
 
-export function authRequested(){
+export function facebookLoggedInAction(data){
   return {
-    type: types.AUTH_REUQESTED,
+    type: types.FACEBOOK_LOGGED_IN,
+    user: data.name
+  }
+}
+export function facebookLoggedIn(data){
+  return dispatch => {
+    localStorage.setItem('username', data.name);
+    dispatch(facebookLoggedInAction(data));
+    dispatch(backendLogin(data.accessToken));
+  };
+}
+
+export function backendLoginRequested(){
+  return {
+    type: types.BACKEND_LOGIN_REQUESTED,
     [ pendingTask ]: begin
   }
 }
 
-export function authDone(data){
+export function backendLoginDone(){
+  debugger;
   return {
-    type: types.AUTH_DONE,
-    [ pendingTask ]: end,
-    data: data
+    type: types.BACKEND_LOGIN_DONE,
+    [ pendingTask ]: end
   }
 }
 
-export function authFailed(error){
+export function backendLoginFailed(error){
   return {
-    type: types.AUTH_FAILED,
+    type: types.BACKEND_LOGIN_FAILED,
     [ pendingTask ]: end,
     error: error
   }
 }
 
 
-export function authenticate(data){
-  return dispatch => {
-    dispatch(authRequested());
-    debugger;
-    fetch(`http://localhost:8080/user/`)
-      .then(response => response.json())
-      .then(data => {
-        dispatch(getDataDone(data));
+export function backendLogin(fbAccessToken){
+  debugger;
+  return (dispatch) => {
+    dispatch(backendLoginRequested());
+    axios().post(
+      `/api/auth/singin`,
+      JSON.stringify(
+        {
+          facebookAccessToken:fbAccessToken,
+        })
+    )
+      .then(response => {
+        debugger;
+        localStorage.setItem('jwt', response.data.jwt);
+        dispatch(backendLoginDone());
       })
       .catch(error => {
-        dispatch(getDataFailed(error));
+        dispatch(backendLoginFailed(error));
       })
   }
 }
-
