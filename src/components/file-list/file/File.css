@@ -38,6 +38,10 @@
   border-radius: 3px;
 }
 
+.file .drive-btn:hover{
+  cursor: pointer;
+}
+
 .file .file-description {
   font-size: 14px;
   text-align: left;

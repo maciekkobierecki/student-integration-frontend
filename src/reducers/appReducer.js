@@ -5,6 +5,12 @@ export default function app(state = initalState, action){
   switch(action.type){
     case types.TAB_CHANGED:
       return {...state, currentTabName: action.currentTabName};
+    case types.FACEBOOK_LOGGED_IN:
+      return {...state, user: action.user };
+    case types.BACKEND_LOGIN_FAILED:
+      return {...state, isAuthenticated: false, user: null };
+    case types.BACKEND_LOGIN_DONE:
+      return {...state, isAuthenticated: true };
     default:
       return state;
   }

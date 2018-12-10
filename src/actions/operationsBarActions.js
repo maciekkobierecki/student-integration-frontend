@@ -1,5 +1,6 @@
 import * as types from "../constants/actionTypes";
 import {begin, end, pendingTask} from "react-redux-spinner";
+import axios from "../axios";
 
 export function createDocumentRequested(){
   return {
@@ -27,15 +28,16 @@ export function createDocumentFailed(error){
 
 export function createDocument(subjectId){
   return dispatch => {
-    dispatch(getDataRequested());
-    debugger;
-    fetch(`http://localhost:8080/files/${subjectId}`)
-      .then(response => response.json())
+    dispatch(backendLoginRequested());
+    axios().get(
+      '/files/${subjectId}'
+    )
+      .then(response => response.data)
       .then(data => {
-        dispatch(getDataDone(data));
+        dispatch(backendLoginDone(data));
       })
       .catch(error => {
-        dispatch(getDataFailed(error));
+        dispatch(backendLoginFailed(error));
       })
   }
 }

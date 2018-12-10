@@ -1,12 +1,6 @@
 import * as types from '../constants/actionTypes';
-import fetch from 'isomorphic-fetch';
 import * as fileListActions from './fileListActions';
-import {
-  pendingTask,
-  begin,
-  end,
-  endAll
-} from 'react-redux-spinner';
+import axios from "../axios";
 
 export function getDataRequested(){
   return {
@@ -22,6 +16,7 @@ export function getDataDone(data){
 }
 
 export function getDataFailed(error){
+  debugger;
   return {
     type: types.FETCH_MY_STUDIES_LIST_FAILED,
     error: error
@@ -32,12 +27,15 @@ export function fetchMyStudiesList(){
   return dispatch => {
 
     dispatch(getDataRequested());
-    fetch('http://localhost:8080/my-studies')
-      .then(response => response.json())
+    axios().get(
+      `/my-studies`
+    )
+      .then(response => response.data)
       .then(data => {
         dispatch(getDataDone(data));
         dispatch(academyItemSelected(data[0])); })
       .catch(error => {
+        debugger;
         dispatch(getDataFailed(error));
       })
 

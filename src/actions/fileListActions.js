@@ -6,6 +6,7 @@ import {
   end,
   endAll
 } from 'react-redux-spinner';
+import axios from "../axios";
 
 export function clearFileList(){
   return {
@@ -39,24 +40,19 @@ export function getDataFailed(error){
 
 export function fetchFileList(){
   return (dispatch, getState) => {
-    debugger;
     dispatch(getDataRequested());
     var state = getState();
     var subjectId = state.myStudiesList.selectedSubject.id;
     var criteria = state.fileList.criteria;
-    fetch(`http://localhost:8080/files`,
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(
-          {
-            subjectId:subjectId,
-            criteria:criteria
-          })
-      })
-      .then(response => response.json())
+    axios().post(
+      `/files`,
+      JSON.stringify(
+        {
+          subjectId:subjectId,
+          criteria:criteria
+        })
+    )
+      .then(response => response.data)
       .then(data => {
         dispatch(getDataDone(data));
       })
@@ -66,29 +62,61 @@ export function fetchFileList(){
   }
 }
 
-function fileEditAction(fileId){
+function fileEditAction(file){
   return {
     type: types.FILE_EDIT,
-    fileId: fileId
+    file: file
   }
 }
 
-export function fileEdit(fileId){
+export function fileEdit(file){
+  debugger;
   return dispatch => {
-    dispatch(fileEditAction(fileId));
+    dispatch(fileEditAction(file));
   }
 }
 
-function fileEditDoneAction(fileId){
+//fileEditDone - file edit API call
+export function fileEditApprovedRequested(){
   return {
-    type: types.FILE_EDIT_DONE,
-    fileId: fileId
+    type: types.FILE_EDIT_APPROVED_REQUESTED,
+    [ pendingTask ]: begin
   }
 }
 
-export function fileEditDone(fileId){
-  return dispatch => {
-    dispatch(fileEditDoneAction(fileId));
+export function fileEditApprovedDone(){
+  return {
+    type: types.FILE_EDIT_APPROVED_DONE,
+    [ pendingTask ]: end
+  }
+}
+
+export function fileEditApprovedFailed(error){
+  return {
+    type: types.FILE_EDIT_APPROVED_FAILED,
+    [ pendingTask ]: end,
+    error: error
+  }
+}
+
+export function fileEditApproved(){
+  return (dispatch, getState) => {
+    dispatch(fileEditApprovedRequested());
+    var state = getState();
+    var fileEdited = state.fileList.editingFile;
+    debugger;
+    axios().post(
+      `/files/edit`,
+      JSON.stringify(
+        {
+          fileEdited
+        })
+    )
+      .then(fileEditApprovedDone())
+      .then(fetchFileList())
+      .catch(error => {
+        dispatch(fileEditApprovedFailed(error));
+      })
   }
 }
 
@@ -100,11 +128,10 @@ export function createDocumentRequested(){
   }
 }
 
-export function createDocumentDone(data){
+export function createDocumentDone(){
   return {
     type: types.CREATE_DOCUMENT_DONE,
-    [ pendingTask ]: end,
-    data: data
+    [ pendingTask ]: end
   }
 }
 
@@ -121,7 +148,14 @@ export function createDocument(){
     dispatch(createDocumentRequested());
     var state = getState();
     var subjectId = state.myStudiesList.selectedSubject.id;
-    fetch(`http://localhost:8080/files/${subjectId}`)
+    axios().post(
+      `file/${subjectId}/new`,
+      JSON.stringify(
+        {
+          subjectId:subjectId
+        })
+    )
+      .then(createDocumentDone())
       .then(fetchFileList())
       .catch(error => {
         dispatch(createDocumentFailed(error));

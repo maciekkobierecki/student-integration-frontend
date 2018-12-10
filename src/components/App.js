@@ -30,6 +30,10 @@ export const TABS={
 
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.responseFacebook = this.responseFacebook.bind(this);
+  }
   tabSelected(selectedTabName){
     const { tabSelected } = this.props;
     tabSelected(selectedTabName);
@@ -37,6 +41,8 @@ class App extends React.Component {
 
   responseFacebook(data){
     debugger;
+    const { facebookLogin } = this.props;
+    facebookLogin(data);
   }
 
   render() {
@@ -45,10 +51,11 @@ class App extends React.Component {
         <div className="app">
           <Spinner/>
           <div className="navbar">
-            <Link to="/file-list" className="option" onClick={this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
+            <Link to="/file-list" className="option" onClick={() => this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
             <Link to="/" className="option"
-                  onClick={this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
-            <Link to="/" className="option" onClick={this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+                  onClick={() => this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
+            <Link to="/" className="option" onClick={() => this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+            <div className="user-email"> {this.props.user}</div>
           </div>
           <div className="page-content">
             <Switch>
@@ -78,21 +85,27 @@ class App extends React.Component {
 
 App.propTypes = {
   currentTab: PropTypes.string,
-  tabSelected: PropTypes.func
+  isAuthenticated: PropTypes.bool.isRequired,
+  appId: PropTypes.number,
+  user: PropTypes.string,
+  tabSelected: PropTypes.func,
+  facebookLogin: PropTypes.func
 
 };
 
 const mapStateToProps = (state) => {
-  const { currentTabName, isAuthenticated, appId } = state.app;
+  const { currentTabName, isAuthenticated, appId, user } = state.app;
   return {
     currentTab: currentTabName,
     isAuthenticated: isAuthenticated,
-    appId: appId
+    appId: appId,
+    user: user
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  tabSelected: (selectedTabName) => dispatch(actions.tabSelected(selectedTabName))
+  tabSelected: (selectedTabName) => dispatch(actions.tabSelected(selectedTabName)),
+  facebookLogin: (data) => dispatch(actions.facebookLoggedIn(data))
 });
 
 export default withRouter(connect(

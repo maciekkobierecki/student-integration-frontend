@@ -9,7 +9,7 @@ export default function myStudiesList(state = initalState, action){
     case types.FETCH_MY_STUDIES_LIST_DONE:
       return {...state, academies: action.data };
     case types.FETCH_MY_STUDIES_LIST_FAILED:
-      return {...state, academiesLoading: false, isError: true };
+      return {...state, academiesLoading: false, isError: true, academies: []};
     case types.ACADEMY_ITEM_SELECTED:
       return {...state, selectedAcademy: action.selectedItem, selectedSemester: {}, selectedSubject: {}};
     case types.SEMESTER_ITEM_SELECTED:
