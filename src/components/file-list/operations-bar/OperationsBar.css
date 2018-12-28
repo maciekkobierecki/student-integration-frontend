@@ -1,54 +1,8 @@
 .operations-bar {
-  text-align: left;
   margin-top: 20px;
 
 }
 
-.operation{
-  display: inline-block;
-  padding: 5px 10px 5px;
-  margin-left: 10px;
-  border-radius: 5px;
-  border: 1px solid #e5e5e5;
-}
-
-.operation:hover{
-  border: 1px solid grey;
-  cursor: pointer;
- }
-
-
-.search-btn {
-  display: inline-block;
-  background-color: #e5e5e5;
-  padding: 6px 10px 6px;
-  border-radius: 5px;
-}
-
-.search-btn:hover {
-  background-color: #bfbfbf;
-  cursor: pointer;
-}
-
-.search-form{
-  display: inline-block;
-  text-align: right;
-  margin-top:0px;
-  margin-left: 10px;
-  vertical-align: top;
-}
-
-input {
-  margin-right: 10px;
-  border-radius: 3px;
-  border: 1px solid #e5e5e5;
-  height: 34px;
-  width: 234px;
-  box-sizing:border-box;
-  margin-top:0;
-  vertical-align: top;
-}
-
-.operations-bar input:hover{
-  border: 1px solid grey;
+.padding{
+  padding: 5px;
 }

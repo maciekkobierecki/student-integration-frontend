@@ -1,6 +1,5 @@
 #app {
   height: inherit;
-  background-color: #f1f1f1;
 }
 
 .app{
@@ -9,14 +8,46 @@
 
 .login-screen{
   text-align: center;
+  background-color: white;
   height: inherit;
-  padding-top:200px;
+  padding-top:100px;
+}
+
+.login-content{
+  border: 1px solid lightgray;
+  width: 642px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.login-description{
+  display: inline-block;
+  width: 400px;
+  vertical-align: middle;
+}
+
+.login-image{
+  display: inline-block;
+}
+
+.login-button{
+  background-color: #3B5998;
+  height: 34px;
+  border-radius: 2px;
+  width: 200px;
+  color: white;
+  border: none;
+}
+
+.login-button:hover{
+  cursor: pointer;
+  background-color: #313d72;
 }
 
 .user-email{
   margin-left: auto;
   color: white;
-  margin-top: 5px;
   margin-right: 40px;
 }
 
@@ -26,6 +57,7 @@
   top: 0;
   background-color: orange;
   display: flex;
+  height: 40px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -41,6 +73,7 @@
   vertical-align: middle;
   display: inline-block;
   text-decoration: none;
+  color:grey;
 }
 
 .navbar .option:hover{
@@ -58,7 +91,9 @@ a{
 
 
 .page-content {
-  text-align: center;
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
   height: inherit;
 }
 

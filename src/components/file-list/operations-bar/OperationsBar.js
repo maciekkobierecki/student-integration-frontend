@@ -4,34 +4,41 @@ import './OperationsBar.css';
 import PropTypes from 'prop-types';
 
 
-const OPERTAION={
-  CREATE_DOC : 'Utwórz dokument',
+const OPERTAION = {
+  CREATE_DOC: 'Utwórz dokument',
   ADD_FILE: 'Dodaj plik'
 }
 
 class OperationsBar extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
 
-  render(){
+  render() {
     const {criteria, onFileCreate, onFileUpload, onSearch} = this.props;
-    const searchValue = this.refs.criteria ? this.refs.criteria.value : null;
+    const searchValue = null;
     return (
       <div>
-        <div className="operations-bar">
-          <div className="operation" onClick={onFileCreate}>{OPERTAION.CREATE_DOC}</div>
-          <div className="operation" onClick={onFileUpload}>{OPERTAION.ADD_FILE}</div>
-          <div className="search-form">
-            <form onSubmit={ (e) => onSearch(e, searchValue)}>
-              <label>
-                <input type="text" name="name" ref="criteria" defaultValue={criteria} />
-              </label>
-              <div className="search-btn">
-                szukaj
+        <div className="container operations-bar">
+          <div>
+            <div className="row form-group">
+              <div className="col-6">
+              <div className="btn-group">
+                <div className="btn btn-outline-secondary">{OPERTAION.CREATE_DOC}</div>
+                <div className="btn btn-outline-secondary">{OPERTAION.ADD_FILE}</div>
               </div>
-            </form>
+              </div>
+              <div className="col-6">
+                <div className="input-group">
+                    <input type="text" className="form-control" name="name" defaultValue={criteria}/>
+                  <div className="input-group-append">
+                    <div className="btn btn-outline-secondary">Szukaj</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>

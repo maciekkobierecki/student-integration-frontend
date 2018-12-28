@@ -1,0 +1,7 @@
+.step-btn{
+  text-align: center;
+}
+
+.step-btn:hover{
+  cursor: pointer;
+}

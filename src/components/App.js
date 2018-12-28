@@ -13,6 +13,8 @@ import * as actions from "../actions/appActions";
 import connect from "react-redux/es/connect/connect";
 import FacebookLogin from 'react-facebook-login';
 import GroupCreationPage from "./group-creation-page/GroupCreationPage";
+import 'bootstrap/dist/css/bootstrap.css';
+import MyGroupsPage from "./my-groups-page/MyGroupsPage";
 
 
 // This is a class-based component because the current
@@ -21,13 +23,15 @@ import GroupCreationPage from "./group-creation-page/GroupCreationPage";
 const ROUTE={
   FILE_LIST:'/file-list',
   CREATE_GROUP:'/create-group',
+  MY_GROUPS:'/my-groups',
   HOME: '/'
 }
 
 export const TABS={
   FILE_LIST: 'Moje studia',
   EXPLORE_SUBJECTS: 'Katalog przedmiotów',
-  CREATE_GROUP: 'Utwórz grupę'
+  CREATE_GROUP: 'Utwórz grupę',
+  MY_GROUPS: 'Moje grupy'
 }
 
 
@@ -42,12 +46,13 @@ class App extends React.Component {
   }
 
   responseFacebook(data){
-    debugger;
     const { facebookLogin } = this.props;
     facebookLogin(data);
   }
 
   render() {
+    const loginPageImage = require('../../images/students.JPG');
+
     if(this.props.isAuthenticated) {
       return (
         <div className="app">
@@ -57,14 +62,16 @@ class App extends React.Component {
             <Link to="/" className="option"
                   onClick={() => this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
             <Link to={ROUTE.CREATE_GROUP} className="option" onClick={() => this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+            <Link to={ROUTE.MY_GROUPS} className="option" onClick={() => this.tabSelected(TABS.MY_GROUPS)}>{TABS.MY_GROUPS}</Link>
             <div className="user-email"> {this.props.user}</div>
           </div>
           <div className="page-content">
             <Switch>
               <Route exact path={ROUTE.HOME} component={HomePage}/>
               <Route path={ROUTE.FILE_LIST} component={MyFilesPage}/>
-              <Route component={NotFoundPage}/>
               <Route path={ROUTE.CREATE_GROUP} component={GroupCreationPage}/>
+              <Route path={ROUTE.MY_GROUPS} component={MyGroupsPage}/>
+              <Route component={NotFoundPage}/>
             </Switch>
           </div>
         </div>
@@ -72,14 +79,23 @@ class App extends React.Component {
     }else{
       return (
         <div className="login-screen">
+          <div className="login-content">
+            <div className="login-description">
+              <div>Student-integration to serwis pozwalający na dzielenie się materiałami z innymi studentami.</div>
+              <div className="mt-2 mb-3">Zaloguj się i sprawdź jak to działa!</div>
           <FacebookLogin appId={this.props.appId}
                          autoLoad={false}
                          language="en_US"
                          scope="public_profile,email"
                          callback={this.responseFacebook}
                          fields="name, email, picture"
-                         className="facebook-login"
-                         buttonText="Login With Facebook"/>
+                         cssClass="login-button"
+                         buttonText="Zaloguj z Facebookiem"/>
+            </div>
+            <div className="login-image">
+          <img src={ loginPageImage } alt="Test" />
+            </div>
+          </div>
         </div>
       )
     }

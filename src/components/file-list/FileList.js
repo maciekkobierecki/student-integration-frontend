@@ -16,44 +16,42 @@ class FileList extends React.Component {
     this.fileEditApproved = this.fileEditApproved.bind(this);
   }
 
-  fileSearch(e, criteria)
-  {
+  fileSearch(e, criteria) {
     e.preventDefault();
     this.props.searchFile(criteria);
   }
 
-  fileUpload(){
+  fileUpload() {
 
   }
 
-  openFile(url){
+  openFile(url) {
     window.open(url, "_blank");
   }
 
-  fileEditApproved(evt){
+  fileEditApproved(evt) {
     evt.preventDefault();
-    const { fileEditApproved } = this.props;
+    const {fileEditApproved} = this.props;
     fileEditApproved();
   }
 
-  render()
-  {
-    debugger;
+  render() {
     const onFileEdit = this.props.fileEdit;
     const onFileEditDone = this.fileEditApproved;
     const onFileOpen = this.openFile;
     const onCreateDocument = this.props.createDocument;
-    const { editingFile, searchCriteria, isLoading } = this.props;
+    const {editingFile, searchCriteria, isLoading} = this.props;
     return (
       <div className="file-list">
-        <div className={ isLoading ? "loading": ""}>
-        <OperationsBar onFileCreate={onCreateDocument} onFileUpload={this.fileUpload} onSearch={this.fileSearch} criteria={searchCriteria}/>
-        <div>
+        <div className={isLoading ? "loading" : ""}>
+          <OperationsBar onFileCreate={onCreateDocument} onFileUpload={this.fileUpload} onSearch={this.fileSearch}
+                         criteria={searchCriteria}/>
+          <div>
             <ul>
               {this.props.files.map(function (listValue) {
                 return <File key={listValue.id}
-                             editing={ editingFile !== null ? listValue.id === editingFile.id : false }
-                             file={ editingFile !== null && listValue.id === editingFile.id ? editingFile : listValue}
+                             editing={editingFile !== null ? listValue.id === editingFile.id : false}
+                             file={editingFile !== null && listValue.id === editingFile.id ? editingFile : listValue}
                              onFileOpen={onFileOpen}
                              onFileEdit={onFileEdit}
                              onFileEditDone={onFileEditDone}/>
@@ -81,24 +79,24 @@ FileList.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { files, filesLoading, editingFile, searchCriteria } = state.fileList;
-    return {
-      files: files,
-      isLoading: filesLoading,
-      editingFile: editingFile,
-      searchCriteria: searchCriteria
-    };
+  const {files, filesLoading, editingFile, searchCriteria} = state.fileList;
+  return {
+    files: files,
+    isLoading: filesLoading,
+    editingFile: editingFile,
+    searchCriteria: searchCriteria
+  };
 }
 
 
 const mapDispatchToProps = (dispatch) => ({
-      clearFileList: () => dispatch(actions.clearFileList()),
-      fetchFileList: (criteria) => dispatch(actions.fetchFileList(criteria)),
-      fileEdit: (file) => dispatch(actions.fileEdit(file)),
-      fileEditApproved: () => dispatch(actions.fileEditApproved()),
-      createDocument: () => dispatch(actions.createDocument()),
-      uploadFile: () => dispatch(actions.uploadFile()),
-      searchFile: (criteria) => dispatch(actions.searchFile(criteria))
+  clearFileList: () => dispatch(actions.clearFileList()),
+  fetchFileList: (criteria) => dispatch(actions.fetchFileList(criteria)),
+  fileEdit: (file) => dispatch(actions.fileEdit(file)),
+  fileEditApproved: () => dispatch(actions.fileEditApproved()),
+  createDocument: () => dispatch(actions.createDocument()),
+  uploadFile: () => dispatch(actions.uploadFile()),
+  searchFile: (criteria) => dispatch(actions.searchFile(criteria))
 });
 
 export default withRouter(connect(

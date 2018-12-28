@@ -20,7 +20,7 @@ const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone}) => {
             </div>
           </div>
           <form onSubmit={(evt) => onFileEditDone(evt)}>
-            <input className="file-edit-input max-width fs14" type="text" name="description" value={file.content} onChange={ (e) => onFileEdit({...file, content: e.target.value}) }/>
+            <input className="file-edit-input max-width fs14" type="text" name="description" value={file.description} onChange={ (e) => onFileEdit({...file, content: e.target.value}) }/>
           </form>
           <div className="tr mr5 mt5">
             <MdCheck className="apply-button" onClick={() => onFileEditDone()}/>
@@ -36,7 +36,7 @@ const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone}) => {
             <MdBuild/>
           </div>
         </div>
-        <div className="file-description">{file.content}</div>
+        <div className="file-description">{file.description}</div>
         <div className="drive-btn mt5" onClick={() => onFileOpen(file.url)}>{lang.buttons.goToDrive}</div>
       </div>
     )

@@ -2,79 +2,63 @@ import * as types from '../constants/actionTypes';
 import * as fileListActions from './fileListActions';
 import axios from "../axios";
 
-export function getDataRequested(){
+export function fetchMyGroupsRequested(){
   return {
-    type: types.FETCH_MY_STUDIES_LIST_REQUESTED
+    type: types.FETCH_MY_GROUPS_LIST_REQUESTED
   }
 }
 
-export function getDataDone(data){
+export function fetchMyGroupsDone(data){
   return {
-    type: types.FETCH_MY_STUDIES_LIST_DONE,
+    type: types.FETCH_MY_GROUPS_LIST_DONE,
     data: data
   }
 }
 
-export function getDataFailed(error){
-  debugger;
+export function fetchMyGroupsFailed(error){
   return {
-    type: types.FETCH_MY_STUDIES_LIST_FAILED,
+    type: types.FETCH_MY_GROUPS_LIST_FAILED,
     error: error
   }
 }
 
-export function fetchMyStudiesList(){
+export function fetchMyGroupsList(){
   return dispatch => {
 
-    dispatch(getDataRequested());
+    dispatch(fetchMyGroupsRequested());
     axios().get(
-      `/my-studies`
+      `/api/groups`
     )
       .then(response => response.data)
       .then(data => {
-        dispatch(getDataDone(data));
-        dispatch(academyItemSelected(data[0])); })
+        dispatch(fetchMyGroupsDone(data));
+        dispatch(groupItemSelected(data[0])); })
       .catch(error => {
-        debugger;
-        dispatch(getDataFailed(error));
+        dispatch(fetchMyGroupsFailed(error));
       })
 
   }
 }
 
-export function academyItemSelectedAction(selectedItem){
+export function groupItemSelectedAction(selectedItem){
   return {
-    type: types.ACADEMY_ITEM_SELECTED,
+    type: types.GROUP_ITEM_SELECTED,
     selectedItem: selectedItem
   };
 }
 
-export function academyItemSelected(selectedItem){
+export function groupItemSelected(selectedItem){
   return dispatch => {
-    dispatch(academyItemSelectedAction(selectedItem));
-    dispatch(semesterItemSelected(selectedItem.semesters[0]))
-  }
-}
-
-export function semesterItemSelectedAction(selectedItem){
- return {
-   type: types.SEMESTER_ITEM_SELECTED,
-   selectedItem: selectedItem
- };
-}
-
-export function semesterItemSelected(selectedItem){
-  return dispatch => {
-    dispatch(semesterItemSelectedAction(selectedItem));
-    dispatch(subjectItemSelected(selectedItem.subjects[0]));
+    dispatch(groupItemSelectedAction(selectedItem));
+    dispatch(subjectItemSelected(selectedItem.subjects[0]))
   }
 }
 
 export function subjectItemSelectedAction(selectedItem){
-  return {
-    type: types.SUBJECT_ITEM_SELECTED,
-    selectedItem: selectedItem
-  }
+ return {
+   type: types.SUBJECT_ITEM_SELECTED,
+   selectedItem: selectedItem
+ };
 }
 
 export function subjectItemSelected(selectedItem){

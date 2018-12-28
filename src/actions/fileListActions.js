@@ -1,10 +1,8 @@
 import * as types from '../constants/actionTypes';
-import fetch from 'isomorphic-fetch';
 import {
   pendingTask,
   begin,
-  end,
-  endAll
+  end
 } from 'react-redux-spinner';
 import axios from "../axios";
 
@@ -45,7 +43,7 @@ export function fetchFileList(){
     var subjectId = state.myStudiesList.selectedSubject.id;
     var criteria = state.fileList.criteria;
     axios().post(
-      `/files`,
+      `/api/files`,
       JSON.stringify(
         {
           subjectId:subjectId,
@@ -70,7 +68,6 @@ function fileEditAction(file){
 }
 
 export function fileEdit(file){
-  debugger;
   return dispatch => {
     dispatch(fileEditAction(file));
   }
@@ -104,9 +101,8 @@ export function fileEditApproved(){
     dispatch(fileEditApprovedRequested());
     var state = getState();
     var fileEdited = state.fileList.editingFile;
-    debugger;
     axios().post(
-      `/files/edit`,
+      `/api/files/edit`,
       JSON.stringify(
         {
           fileEdited
@@ -149,7 +145,7 @@ export function createDocument(){
     var state = getState();
     var subjectId = state.myStudiesList.selectedSubject.id;
     axios().post(
-      `file/${subjectId}/new`,
+      `/api/file/${subjectId}/new`,
       JSON.stringify(
         {
           subjectId:subjectId

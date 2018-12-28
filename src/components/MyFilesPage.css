@@ -1,14 +1,15 @@
 .my-files-page {
   height: inherit;
+  border: rgba(155, 155, 155, 0.23) solid 1px;
 }
 
 .my-files-page .my-studies-column{
   background-color: white;
-  width: 300px;
+  width: 298px;
   min-height: 600px;
   display: inline-block;
-  border: rgba(155, 155, 155, 0.23) solid 1px;
   vertical-align: top;
+  border-right: rgba(155, 155, 155, 0.23) solid 1px;
   height: inherit;
 }
 .my-files-page .files-column{

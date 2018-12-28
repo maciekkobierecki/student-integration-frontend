@@ -1,8 +1,10 @@
 import React from 'react';
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import './MyStudiesList.css';
 import * as actions from "../../actions/myStudiesListActions";
 import connect from "react-redux/es/connect/connect";
+import PropTypes from 'prop-types';
+
 
 
 class MyStudiesList extends React.Component {
@@ -12,18 +14,13 @@ class MyStudiesList extends React.Component {
 
 
   componentDidMount(){
-    const { fetchMyStudiesList } = this.props;
-    fetchMyStudiesList();
+    const { fetchMyGroupsList } = this.props;
+    fetchMyGroupsList();
   }
 
-  academySelected(item){
-    const { academySelected } = this.props;
-    academySelected(item);
-  }
-
-  semesterSelected(item){
-    const { semesterSelected } = this.props;
-    semesterSelected(item);
+  groupSelected(item){
+    const { groupSelected } = this.props;
+    groupSelected(item);
   }
 
   subjectSelected(item){
@@ -32,12 +29,10 @@ class MyStudiesList extends React.Component {
   }
 
   render(){
-    const data = this.props.academies;
-    const selectedAcademy = this.props.selectedAcademy;
-    const selectedSemester = this.props.selectedSemester;
+    const data = this.props.myGroups;
+    const selectedGroup = this.props.selectedGroup;
     const selectedSubject = this.props.selectedSubject;
 
-    debugger;
     return (
       <div className="my-studies-list">
         <div className="list-info-label">
@@ -45,74 +40,59 @@ class MyStudiesList extends React.Component {
         </div>
         <ul>
           <div className="list-info-label">
-            Uczelnia
+            Grupa
           </div>
-          {data.map( academy  => (
-            <li key={academy.id} style={ selectedAcademy.id === academy.id ? {backgroundColor: '#e1e1e1'} : {}}>
-                <div className="list-option" onClick={()=>this.academySelected(academy)}>
-                {academy.academyName}
+          {data && data.map( group  => (
+            <li key={group.id} style={ selectedGroup.id === group.id ? {backgroundColor: '#e1e1e1'} : {}}>
+                <div className="list-option" onClick={()=>this.groupSelected(group)}>
+                {group.name}
                 </div>
             </li>
           ))}
         </ul>
 
-        { selectedAcademy.id && (
+        { selectedGroup.id && (
           <ul>
             <div className="list-info-label">
-              Kierunek
+              Przedmioty
             </div>
-            {selectedAcademy.semesters.map(semester => (
-              <li key={semester.id} style={ selectedSemester.id === semester.id ? {backgroundColor: '#e1e1e1'} : {}}>
-                <div className="list-option" onClick={()=>this.semesterSelected(semester)}>
-                  {semester.name}
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        { selectedSemester.id && (
-          <ul>
-            <div className="list-info-label">
-              Przedmiot
-            </div>
-            {selectedSemester.subjects.map(subject => (
+            {selectedGroup.subjects.map(subject => (
               <li key={subject.id} style={ selectedSubject.id === subject.id ? {backgroundColor: '#e1e1e1'} : {}}>
-                <div className="list-option"  onClick={()=>this.subjectSelected(subject)}>
-                  {subject.name}
+                <div className="list-option" onClick={()=>this.subjectSelected(subject)}>
+                  {subject.subjectName}
                 </div>
               </li>
             ))}
           </ul>
-        )}
-
-        { selectedSubject.id && (
-          <div>
-            {selectedSubject.name}
-            Oceń przedmiot
-          </div>
         )}
       </div>
     )
   }
 }
 
+MyStudiesList.propTypes ={
+  fetchMyGroupsList: PropTypes.func,
+  groupSelected: PropTypes.func,
+  subjectSelected: PropTypes.func,
+  myGroups: PropTypes.array,
+  selectedGroup: PropTypes.object,
+  selectedSubject: PropTypes.object
+}
+
 const mapStateToProps = (state) => {
-  const { academies, selectedAcademy, selectedSemester, selectedSubject } = state.myStudiesList;
+  const { myGroups, selectedGroup, selectedSubject } = state.myStudiesList;
   return {
-    academies: academies,
-    selectedAcademy: selectedAcademy,
-    selectedSemester: selectedSemester,
+    myGroups: myGroups,
+    selectedGroup: selectedGroup,
     selectedSubject: selectedSubject
   };
 };
 
 
 const mapDispatchToProps = (dispatch) => ({
-  academySelected: (selected) => dispatch(actions.academyItemSelected(selected)),
-  semesterSelected: (selected) => dispatch(actions.semesterItemSelected(selected)),
+  groupSelected: (selected) => dispatch(actions.groupItemSelected(selected)),
   subjectSelected: (selected) => dispatch(actions.subjectItemSelected(selected)),
-  fetchMyStudiesList: () => dispatch(actions.fetchMyStudiesList())
+  fetchMyGroupsList: () => dispatch(actions.fetchMyGroupsList())
 });
 
 export default withRouter(connect(

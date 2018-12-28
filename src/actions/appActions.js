@@ -39,7 +39,6 @@ export function backendLoginRequested(){
 }
 
 export function backendLoginDone(){
-  debugger;
   return {
     type: types.BACKEND_LOGIN_DONE,
     [ pendingTask ]: end
@@ -56,7 +55,6 @@ export function backendLoginFailed(error){
 
 
 export function backendLogin(fbAccessToken){
-  debugger;
   return (dispatch) => {
     dispatch(backendLoginRequested());
     axios().post(
@@ -67,7 +65,6 @@ export function backendLogin(fbAccessToken){
         })
     )
       .then(response => {
-        debugger;
         localStorage.setItem('jwt', response.data.jwt);
         dispatch(backendLoginDone());
       })

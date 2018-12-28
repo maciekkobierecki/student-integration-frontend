@@ -17,10 +17,7 @@
 }
 .list-option:hover{
   background-color: #bfbfbf;
-}
-
-.semester-option:hover{
-  background-color: red;
+  cursor: pointer;
 }
 
 li {list-style-type: none;}
