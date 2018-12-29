@@ -5,7 +5,7 @@ import './Group.css';
 const Group = ({group}) => {
   return (
     <li className="list-group-item">
-      <h2>{group.name}</h2>
+      <h2 className="si-yellow-text">{group.name}</h2>
       <div className="row">
         <div> {group.academyName}, {group.degreeName}, Semestr {group.semesterNo}</div>
       </div>

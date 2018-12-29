@@ -46,7 +46,18 @@ class FileList extends React.Component {
         <div className={isLoading ? "loading" : ""}>
           <OperationsBar onFileCreate={onCreateDocument} onFileUpload={this.fileUpload} onSearch={this.fileSearch}
                          criteria={searchCriteria}/>
-          <div>
+          <ul className="nav justify-content-center nav-pills">
+            <li className="nav-item">
+              <a className="nav-link active" href="#">Wszystkie</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">Odziedziczone</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">Utworzone przez grupę</a>
+            </li>
+          </ul>
+          <div className="p-1">
             <ul>
               {this.props.files.map(function (listValue) {
                 return <File key={listValue.id}

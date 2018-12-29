@@ -6,6 +6,10 @@
   height: inherit;
 }
 
+.nav{
+  height: 60px;
+}
+
 .login-screen{
   text-align: center;
   background-color: white;
@@ -13,6 +17,25 @@
   padding-top:100px;
 }
 
+.si-color{
+  background-color: #563d7c !important;
+}
+
+.si-color-text{
+  color: #cbbde2 !important;
+}
+
+.si-yellow{
+  background-color: #ffe484 !important;
+}
+
+.si-yellow-text{
+  color: #ffe484 !important;
+}
+
+.si-navbar-option{
+  font-size: 16px !important;
+}
 .login-content{
   border: 1px solid lightgray;
   width: 642px;
@@ -45,50 +68,10 @@
   background-color: #313d72;
 }
 
-.user-email{
-  margin-left: auto;
-  color: white;
-  margin-right: 40px;
-}
-
-.navbar {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  background-color: orange;
-  display: flex;
-  height: 40px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-}
-
-.navbar .option {
-  min-width: 150px;
-  min-height: 24px;
-  padding-left: 5px;
-  padding-right: 5px;
-  font-size: 18px;
-  margin: 5px;
-  text-align: center;
-  border-radius: 3px;
-  vertical-align: middle;
-  display: inline-block;
-  text-decoration: none;
-  color:grey;
-}
-
-.navbar .option:hover{
-  background-color: #f49f00;
-}
-
-.navbar .option .selected {
-  background-color: grey;
-}
-
 a{
   text-decoration: none;
   color: grey;
 }
-
 
 .page-content {
   width: 900px;

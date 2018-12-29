@@ -57,13 +57,13 @@ class App extends React.Component {
       return (
         <div className="app">
           <Spinner/>
-          <div className="navbar">
-            <Link to={ROUTE.FILE_LIST} className="option" onClick={() => this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
-            <Link to="/" className="option"
+          <div className="navbar sticky-top si-color">
+            <Link to={ROUTE.FILE_LIST} className="navbar-brand si-color-text si-navbar-option" onClick={() => this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
+            <Link to="/" className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
-            <Link to={ROUTE.CREATE_GROUP} className="option" onClick={() => this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
-            <Link to={ROUTE.MY_GROUPS} className="option" onClick={() => this.tabSelected(TABS.MY_GROUPS)}>{TABS.MY_GROUPS}</Link>
-            <div className="user-email"> {this.props.user}</div>
+            <Link to={ROUTE.CREATE_GROUP} className="navbar-brand si-color-text si-navbar-option" onClick={() => this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
+            <Link to={ROUTE.MY_GROUPS} className="navbar-brand si-color-text si-navbar-option" onClick={() => this.tabSelected(TABS.MY_GROUPS)}>{TABS.MY_GROUPS}</Link>
+            <div className="navbar-brand ml-auto text-white"> {this.props.user}</div>
           </div>
           <div className="page-content">
             <Switch>

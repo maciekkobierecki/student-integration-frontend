@@ -148,8 +148,7 @@ class AcademyStep extends React.Component {
         <div className="choose-window">
           <label>Wybierz uczelnię</label>
           {academies && academies.map(function (item) {
-            return <div key={item.id} className="option"
-                        style={item.id === selectedAcademyId ? {backgroundColor: 'orange'} : {}}
+            return <div key={item.id} className={"option"+ (item.id ===selectedAcademyId ? " si-yellow":"")}
                         onClick={() => onAcademySelected(item.id)}>{item.academyName}</div>;
           })}
         </div>
@@ -170,8 +169,8 @@ class DegreeStep extends React.Component {
         <div className="choose-window">
           <label>Wybierz kierunek</label>
           {degrees && degrees.map(function (item) {
-            return <div key={item.id} className="option"
-                        style={item.id === selectedDegreeId ? {backgroundColor: 'orange'} : {}}
+            return <div key={item.id}
+                        className={"option"+ (item.id ===selectedDegreeId ? " si-yellow":"")}
                         onClick={() => onDegreeSelected(item.id)}>{item.name}</div>;
           })}
         </div>
