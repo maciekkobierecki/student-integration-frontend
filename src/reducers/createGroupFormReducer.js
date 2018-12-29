@@ -2,9 +2,10 @@ import initalState from "./initialState";
 import * as types from "../constants/actionTypes";
 
 export default function createGroupForm(state = initalState, action) {
+  debugger;
   switch (action.type) {
     case types.FETCH_ACADEMIES_DONE:
-      return {...state, allAcademies: action.data};
+      return {...state, allAcademies: action.data };
     case types.FETCH_DEGREES_DONE:
       return {...state, degrees: action.data};
     case types.CREATE_GROUP_ACADEMY_SELECTED:

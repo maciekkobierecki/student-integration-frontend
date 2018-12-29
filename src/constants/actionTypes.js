@@ -2,6 +2,9 @@
 export const LOCATION_CHANGE='@@router/LOCATION_CHANGE';
 
 //app
+export const LOADING_ON='LOADING_ON';
+export const LOADING_OFF='LOADING_OFF';
+
 export const TAB_CHANGED='TAB_CHANGED';
 
 export const FACEBOOK_LOGGED_IN='FACEBOOK_LOGGED_IN';

@@ -1,7 +1,7 @@
 import * as types from "../constants/actionTypes";
 import {begin, end, pendingTask} from "react-redux-spinner";
 import axios from "../axios";
-import {backendLoginRequested, backendLoginDone, backendLoginFailed} from './appActions';
+import {backendLoginRequested, backendLoginDone, backendLoginFailed, loadingTurnOn, loadingTurnOff} from './appActions';
 
 export function createDocumentRequested(){
   return {
@@ -30,15 +30,18 @@ export function createDocumentFailed(error){
 export function createDocument(){
   return dispatch => {
     dispatch(backendLoginRequested());
+    dispatch(loadingTurnOn());
     axios().get(
       '/api/files/${subjectId}'
     )
       .then(response => response.data)
       .then(data => {
         dispatch(backendLoginDone(data));
+        dispatch(loadingTurnOff());
       })
       .catch(error => {
         dispatch(backendLoginFailed(error));
+        dispatch(loadingTurnOff());
       })
   }
 }

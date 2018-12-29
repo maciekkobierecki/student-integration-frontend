@@ -2,6 +2,21 @@ import * as types from '../constants/actionTypes';
 import {begin, end, pendingTask} from "react-redux-spinner";
 import axios from '../axios';
 
+export function loadingTurnOn(){
+  return dispatch => { dispatch(
+    {
+      type: types.LOADING_ON
+    }
+  )}
+}
+
+export function loadingTurnOff(){
+  return dispatch => { dispatch(
+    {
+      type: types.LOADING_OFF
+    }
+  )}
+}
 
 export function tabSelectedAction(selectedTabName){
   return {

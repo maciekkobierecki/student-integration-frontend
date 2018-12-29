@@ -6,6 +6,10 @@
   height: inherit;
 }
 
+.loading{
+  opacity: 0.5;
+}
+
 .nav{
   height: 60px;
 }

@@ -1,6 +1,7 @@
 import * as types from "../constants/actionTypes";
 import {begin, end, pendingTask} from "react-redux-spinner";
 import axios from "../axios";
+import {loadingTurnOff, loadingTurnOn} from "./appActions";
 
 export function fetchMyGroupsRequested(){
   return {
@@ -29,15 +30,19 @@ export function fetchMyGroupsFailed(error){
 export function fetchMyGroups(){
   return (dispatch) => {
     dispatch(fetchMyGroupsRequested());
+    dispatch(loadingTurnOn());
     axios().get(
       `/api/groups`
     )
       .then(response => response.data)
       .then(data => {
         dispatch(fetchMyGroupsDone(data));
+        dispatch(loadingTurnOff());
+
       })
       .catch(error => {
         dispatch(fetchMyGroupsFailed(error));
+        dispatch(loadingTurnOff());
       })
   }
 }

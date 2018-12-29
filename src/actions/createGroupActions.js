@@ -1,6 +1,8 @@
 import * as types from '../constants/actionTypes';
 import {begin, end, pendingTask} from "react-redux-spinner";
+import './appActions';
 import axios from "../axios";
+import {loadingTurnOn, loadingTurnOff} from "./appActions";
 
 
 
@@ -32,15 +34,18 @@ export function fetchAcademiesFailed(error){
 export function fetchAcademies(){
   return (dispatch) => {
     dispatch(fetchAcademiesRequested());
+    dispatch(loadingTurnOn());
     axios().get(
       `/api/academies`)
       .then(response => response.data)
       .then(data => {
         debugger;
-        dispatch(fetchAcademiesDone(data));
+        dispatch(fetchAcademiesDone(data))
+        dispatch(loadingTurnOff());
       })
       .catch(error => {
         dispatch(fetchAcademiesFailed(error));
+        dispatch(loadingTurnOff());
       })
   }
 }
@@ -72,6 +77,7 @@ export function fetchDegreesFailed(error){
 export function fetchDegrees(){
   return (dispatch, getState) => {
     dispatch(fetchDegreesRequested());
+    dispatch(loadingTurnOn());
     var state = getState();
     var academyId = state.createGroupForm.creatingGroup.academyId;
     axios().get(
@@ -79,9 +85,11 @@ export function fetchDegrees(){
       .then(response => response.data)
       .then(data => {
         dispatch(fetchDegreesDone(data));
+        dispatch(loadingTurnOff());
       })
       .catch(error => {
         dispatch(fetchDegreesFailed(error));
+        dispatch(loadingTurnOff());
       })
   }
 }

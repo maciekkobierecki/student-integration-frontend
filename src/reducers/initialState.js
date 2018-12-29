@@ -16,5 +16,6 @@ export default {
   isAuthenticated: !!localStorage.getItem('jwt'),
   user: localStorage.getItem('username'),
   appId: 2108929732752092,
-  groups: []
+  groups: [],
+  loadingCount: 0
 };
