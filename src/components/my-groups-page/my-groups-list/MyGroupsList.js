@@ -19,6 +19,14 @@ class MyGroupsList extends React.Component {
 
 
   render() {
+    let groups = this.props.groups;
+    if(!groups.length){
+      return(
+        <div className="alert alert-primary">
+          Nie należysz do żadnej grupy! Utwórz grupę lub dołącz do istniejącej poprzez kliknięcie w link rekrutacyjny!
+        </div>
+      )
+    }
     return (
       <div>
         <ul className="list-group list-group-flush">

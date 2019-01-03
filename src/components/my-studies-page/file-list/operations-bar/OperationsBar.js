@@ -24,16 +24,16 @@ class OperationsBar extends React.Component {
           <div>
             <div className="row form-group">
               <div className="col-6">
-              <div className="btn-group">
-                <div className="btn btn-outline-secondary">{OPERTAION.CREATE_DOC}</div>
-                <div className="btn btn-outline-secondary">{OPERTAION.ADD_FILE}</div>
-              </div>
+                <div className="btn-group">
+                  <div className="btn btn-outline-secondary" onClick={() => onFileCreate()}>{OPERTAION.CREATE_DOC}</div>
+                  <div className="btn btn-outline-secondary" onClick={() => onFileUpload()}>{OPERTAION.ADD_FILE}</div>
+                </div>
               </div>
               <div className="col-6">
                 <div className="input-group">
-                    <input type="text" className="form-control" name="name" defaultValue={criteria}/>
+                  <input type="text" className="form-control" name="name" defaultValue={criteria}/>
                   <div className="input-group-append">
-                    <div className="btn btn-outline-secondary">Szukaj</div>
+                    <div className="btn btn-outline-secondary" onClick={() => onSearch()}>Szukaj</div>
                   </div>
                 </div>
               </div>

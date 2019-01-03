@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MdBuild, MdCheck} from 'react-icons/md';
-import {lang} from '../../../constants/translations';
+import {MdBuild, MdCheck, MdExpandLess, MdExpandMore} from 'react-icons/md';
+import {lang} from '../../../../constants/translations';
 import './File.css';
 
 
@@ -31,17 +31,35 @@ const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone}) => {
   }
   return (
     <div className="container file">
-      <div className="p-1">
-        <div className="row">
-          <div className="name si-yellow">{file.name}</div>
-          <div className="createDate">{file.createDate}</div>
-          <div className="edit-file-button" onClick={() => onFileEdit(file)}>
-            <MdBuild/>
+      <div className="row">
+        <div className="col-11">
+          <div className="container">
+            <div className="row">
+              <div className="name si-yellow">{file.name}</div>
+              <div className="edit-file-button" onClick={() => onFileEdit(file)}>
+                <MdBuild size={20}/>
+              </div>
+              <div className="createDate">{file.createDate}</div>
+            </div>
+            <div className="file-description">{file.description}</div>
+            <div className="row">
+              <div className="btn bg-light ml-auto mr-2"
+                   onClick={() => onFileOpen(file.url)}>{lang.buttons.goToDrive}</div>
+            </div>
           </div>
         </div>
-        <div className="file-description">{file.description}</div>
-        <div className="row">
-          <div className="btn bg-light ml-auto mr-2" onClick={() => onFileOpen(file.url)}>{lang.buttons.goToDrive}</div>
+        <div className="col-1">
+          <div className="row">
+            <div>
+              <MdExpandLess className="text-green" size={30}/>
+            </div>
+            <div>
+              50%
+            </div>
+            <div>
+              <MdExpandMore className="text-red" size={30}/>
+            </div>
+          </div>
         </div>
       </div>
     </div>

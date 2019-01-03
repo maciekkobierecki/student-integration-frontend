@@ -1,10 +1,11 @@
 import React from 'react';
 import './RecruitmentPage.css';
+import GroupAdder from "./group-adder/GroupAdder";
 
 const RecruitmentPage = () => {
   return (
     <div className="my-groups-page">
-      <h4 className="mt-2">Dodawanie do grupy. Proszę czekać.</h4>
+      <GroupAdder/>
     </div>
   );
 };

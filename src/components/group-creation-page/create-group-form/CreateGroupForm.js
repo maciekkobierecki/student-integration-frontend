@@ -20,6 +20,10 @@ class CreateGroupForm extends React.Component {
     this.fetchAcademies();
   }
 
+  componentDidMount(){
+    this.props.clearGroupCreationData();
+  }
+
   fetchAcademies() {
     this.props.fetchAcademies();
   }
@@ -78,7 +82,8 @@ CreateGroupForm.propTypes = {
   academySelected: PropTypes.func,
   degreeSelected: PropTypes.func,
   groupCreationDone: PropTypes.func,
-  groupDataChanged: PropTypes.func
+  groupDataChanged: PropTypes.func,
+  clearGroupCreationData: PropTypes.func
 }
 
 const mapStateToProps = (state) => {
@@ -97,7 +102,8 @@ const mapDispatchToProps = (dispatch) => ({
   academySelected: (academyId) => dispatch(actions.academySelected(academyId)),
   degreeSelected: (degreeId) => dispatch(actions.degreeSelected(degreeId)),
   groupCreationDone: () => dispatch(actions.groupCreationDone()),
-  groupDataChanged: (propertyName, propertyValue) => dispatch(actions.groupDataChanged(propertyName, propertyValue))
+  groupDataChanged: (propertyName, propertyValue) => dispatch(actions.groupDataChanged(propertyName, propertyValue)),
+  clearGroupCreationData: () => dispatch(actions.clearGroupCreationData())
 });
 
 export default withRouter(connect(

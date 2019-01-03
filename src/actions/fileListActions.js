@@ -148,8 +148,8 @@ export function createDocument() {
   return (dispatch, getState) => {
     dispatch(createDocumentRequested());
     dispatch(loadingTurnOn());
-    var state = getState();
-    var subjectId = state.myStudiesList.selectedSubject.id;
+    let state = getState();
+    let subjectId = state.myStudiesList.selectedSubject.id;
     axios().post(
       `/api/file/${subjectId}/new`,
       JSON.stringify(

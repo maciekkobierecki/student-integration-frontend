@@ -4,7 +4,6 @@ export default {
   currentTabName: TABS.FILE_LIST,
   files:[],
   editingFile: null,
-  filesLoading: true,
   myGroups: [],
   academiesLoading: true,
   selectedGroup: {},
@@ -17,5 +16,6 @@ export default {
   user: localStorage.getItem('username'),
   appId: 2108929732752092,
   groups: [],
+  groupEnter: {},
   loadingCount: 0
 };

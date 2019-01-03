@@ -11,7 +11,7 @@ const Group = ({group}) => {
       </div>
       <div className="row">
         <div>Link dołączający do grupy:</div>
-        <div>{group.url}</div>
+        <div>https://student-integration.pl/recruitment/{group.groupEnterHash}</div>
       </div>
     </li>
   );

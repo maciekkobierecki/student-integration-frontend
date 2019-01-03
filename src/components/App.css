@@ -8,6 +8,7 @@
 
 .loading{
   opacity: 0.5;
+  pointer-events: none;
 }
 
 .nav{
@@ -23,6 +24,14 @@
 
 .si-color{
   background-color: #563d7c !important;
+}
+
+.text-green{
+  color: green;
+}
+
+.text-red{
+  color: darkred;
 }
 
 .si-color-text{

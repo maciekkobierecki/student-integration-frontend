@@ -1,5 +1,5 @@
 import React from 'react';
-import * as actions from "../../actions/fileListActions";
+import * as actions from "../../../actions/fileListActions";
 import connect from "react-redux/es/connect/connect";
 import './FileList.css';
 import PropTypes from 'prop-types';
@@ -40,35 +40,43 @@ class FileList extends React.Component {
     const onFileEditDone = this.fileEditApproved;
     const onFileOpen = this.openFile;
     const onCreateDocument = this.props.createDocument;
-    const {editingFile, searchCriteria, isLoading} = this.props;
+    let {editingFile, searchCriteria, files, hasGroups} = this.props;
+
+    debugger;
+    if(!hasGroups){
+      return (
+        <div className="alert alert-info m-2">
+          Dołącz do grupy aby móc dodawać i edytować materiały!
+        </div>
+      )
+    }
     return (
       <div className="file-list">
-        <div className={isLoading ? "loading" : ""}>
-          <OperationsBar onFileCreate={onCreateDocument} onFileUpload={this.fileUpload} onSearch={this.fileSearch}
-                         criteria={searchCriteria}/>
-          <ul className="nav justify-content-center nav-pills">
-            <li className="nav-item">
-              <a className="nav-link active" href="#">Wszystkie</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Odziedziczone</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Utworzone przez grupę</a>
-            </li>
+        <OperationsBar onFileCreate={onCreateDocument} onFileUpload={this.fileUpload} onSearch={this.fileSearch}
+                       criteria={searchCriteria}/>
+        <ul className="nav justify-content-center nav-pills">
+          <li className="nav-item">
+            <a className="nav-link active" href="#">Wszystkie</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">Odziedziczone</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">Utworzone przez grupę</a>
+          </li>
+        </ul>
+        {!files.length && <div className="alert alert-info ml-2 mr-2">Przedmiot nie posiada przypisanych jeszcze żadnych plików.</div>}
+        <div className="p-1">
+          <ul>
+            {files.map(function (listValue) {
+              return <File key={listValue.id}
+                           editing={editingFile !== null ? listValue.id === editingFile.id : false}
+                           file={editingFile !== null && listValue.id === editingFile.id ? editingFile : listValue}
+                           onFileOpen={onFileOpen}
+                           onFileEdit={onFileEdit}
+                           onFileEditDone={onFileEditDone}/>
+            })}
           </ul>
-          <div className="p-1">
-            <ul>
-              {this.props.files.map(function (listValue) {
-                return <File key={listValue.id}
-                             editing={editingFile !== null ? listValue.id === editingFile.id : false}
-                             file={editingFile !== null && listValue.id === editingFile.id ? editingFile : listValue}
-                             onFileOpen={onFileOpen}
-                             onFileEdit={onFileEdit}
-                             onFileEditDone={onFileEditDone}/>
-              })}
-            </ul>
-          </div>
         </div>
       </div>
     )
@@ -76,8 +84,8 @@ class FileList extends React.Component {
 }
 
 FileList.propTypes = {
-  files: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  files: PropTypes.array,
+  hasGroups: PropTypes.bool,
   editingFile: PropTypes.object,
   searchCriteria: PropTypes.string.isRequired,
   clearFileList: PropTypes.func.isRequired,
@@ -90,10 +98,12 @@ FileList.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {files, filesLoading, editingFile, searchCriteria} = state.fileList;
+  let {files, editingFile, searchCriteria} = state.fileList;
+  let hasGroups = state.myStudiesList.myGroups.length;
+
   return {
+    hasGroups: hasGroups,
     files: files,
-    isLoading: filesLoading,
     editingFile: editingFile,
     searchCriteria: searchCriteria
   };

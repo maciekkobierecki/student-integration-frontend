@@ -1,6 +1,7 @@
 .my-files-page {
   height: inherit;
   border: rgba(155, 155, 155, 0.23) solid 1px;
+  border-top: none;
 }
 
 .my-files-page .my-studies-column{

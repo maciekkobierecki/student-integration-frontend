@@ -1,9 +1,9 @@
 import React from 'react';
 import MyStudiesList from "./my-studies-list/MyStudiesList";
 import FileList from "./file-list/FileList";
-import './MyFilesPage.css';
+import './MyStudiesPage.css';
 
-const MyFilesPage = () => {
+const MyStudiesPage = () => {
   return (
     <div className="my-files-page">
       <div className="my-studies-column">
@@ -16,4 +16,4 @@ const MyFilesPage = () => {
   );
 };
 
-export default MyFilesPage
+export default MyStudiesPage

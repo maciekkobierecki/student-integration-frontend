@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import {hot} from "react-hot-loader";
 import "./App.css";
-import MyFilesPage from "./MyFilesPage";
+import MyStudiesPage from "./my-studies-page/MyStudiesPage";
 import {Spinner} from "react-redux-spinner";
 import * as actions from "../actions/appActions";
 import connect from "react-redux/es/connect/connect";
@@ -71,13 +71,13 @@ class App extends React.Component {
             <div className="navbar-brand ml-auto text-white"> {this.props.user}</div>
           </div>
           <div className="page-content">
-            <div className={this.props.loadingCount !== 0 ? "loading": ""}>
+            <div className={this.props.loadingCount !== 0 ? "loading" : ""}>
               <Switch>
                 <Route exact path={ROUTE.HOME} component={HomePage}/>
-                <Route path={ROUTE.FILE_LIST} component={MyFilesPage}/>
+                <Route path={ROUTE.FILE_LIST} component={MyStudiesPage}/>
                 <Route path={ROUTE.CREATE_GROUP} component={GroupCreationPage}/>
                 <Route path={ROUTE.MY_GROUPS} component={MyGroupsPage}/>
-                <Route path={ROUTE.RECRUITMENT} component={RecruitmentPage}/>
+                <Route path='/recruitment/:hash' component={RecruitmentPage}/>
                 <Route component={NotFoundPage}/>
               </Switch>
             </div>
@@ -122,7 +122,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {currentTabName, isAuthenticated, appId, user, loadingCount } = state.app;
+  const {currentTabName, isAuthenticated, appId, user, loadingCount} = state.app;
   return {
     currentTab: currentTabName,
     isAuthenticated: isAuthenticated,

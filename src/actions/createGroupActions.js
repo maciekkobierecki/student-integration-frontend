@@ -4,7 +4,13 @@ import './appActions';
 import axios from "../axios";
 import {loadingTurnOn, loadingTurnOff} from "./appActions";
 
-
+export function clearGroupCreationData(){
+  return (dispatch) => {
+    dispatch({
+      type: types.CLEAR_GROUP_CREATION_DATA
+    })
+  }
+}
 
 
 export function fetchAcademiesRequested(){
