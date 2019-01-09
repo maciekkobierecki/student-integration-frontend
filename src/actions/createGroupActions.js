@@ -1,6 +1,5 @@
 import * as types from '../constants/actionTypes';
 import {begin, end, pendingTask} from "react-redux-spinner";
-import './appActions';
 import axios from "../axios";
 import {loadingTurnOn, loadingTurnOff} from "./appActions";
 
@@ -45,7 +44,6 @@ export function fetchAcademies(){
       `/api/academies`)
       .then(response => response.data)
       .then(data => {
-        debugger;
         dispatch(fetchAcademiesDone(data))
         dispatch(loadingTurnOff());
       })
@@ -166,7 +164,6 @@ export function groupCreationDone(){
 }
 
 export function groupDataChanged(propertyName, propertyValue){
-  debugger;
   return (dispatch) => {
     dispatch({
       type:  types.CREATE_GROUP_DATA_CHANGED,

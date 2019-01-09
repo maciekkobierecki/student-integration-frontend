@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 import {Link, Route, Switch, withRouter} from "react-router-dom";
 
-import HomePage from "./HomePage";
+import ExploreSubjectsPage from "./explore-subjects-page/ExploreSubjectsPage";
 import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
@@ -26,6 +26,7 @@ const ROUTE = {
   CREATE_GROUP: '/create-group',
   MY_GROUPS: '/my-groups',
   RECRUITMENT: '/recruitment',
+  SUBJECTS_DIRECTORY: '/explore',
   HOME: '/'
 };
 
@@ -60,9 +61,9 @@ class App extends React.Component {
         <div className="app">
           <Spinner/>
           <div className="navbar sticky-top si-color">
-            <Link to={ROUTE.FILE_LIST} className="navbar-brand si-color-text si-navbar-option"
+            <Link to={ROUTE.HOME} className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
-            <Link to="/" className="navbar-brand si-color-text si-navbar-option"
+            <Link to={ROUTE.SUBJECTS_DIRECTORY} className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
             <Link to={ROUTE.CREATE_GROUP} className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
@@ -73,8 +74,8 @@ class App extends React.Component {
           <div className="page-content">
             <div className={this.props.loadingCount !== 0 ? "loading" : ""}>
               <Switch>
-                <Route exact path={ROUTE.HOME} component={HomePage}/>
-                <Route path={ROUTE.FILE_LIST} component={MyStudiesPage}/>
+                <Route exact path={ROUTE.HOME} component={MyStudiesPage}/>
+                <Route path={ROUTE.SUBJECTS_DIRECTORY} component={ExploreSubjectsPage}/>
                 <Route path={ROUTE.CREATE_GROUP} component={GroupCreationPage}/>
                 <Route path={ROUTE.MY_GROUPS} component={MyGroupsPage}/>
                 <Route path='/recruitment/:hash' component={RecruitmentPage}/>

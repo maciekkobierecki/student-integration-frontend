@@ -42,7 +42,6 @@ class FileList extends React.Component {
     const onCreateDocument = this.props.createDocument;
     let {editingFile, searchCriteria, files, hasGroups} = this.props;
 
-    debugger;
     if(!hasGroups){
       return (
         <div className="alert alert-info m-2">
@@ -99,7 +98,7 @@ FileList.propTypes = {
 
 const mapStateToProps = (state) => {
   let {files, editingFile, searchCriteria} = state.fileList;
-  let hasGroups = state.myStudiesList.myGroups.length;
+  let hasGroups = !!state.myStudiesList.myGroups.length;
 
   return {
     hasGroups: hasGroups,

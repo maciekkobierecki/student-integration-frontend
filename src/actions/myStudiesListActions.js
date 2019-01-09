@@ -33,7 +33,6 @@ export function fetchMyGroupsList() {
     )
       .then(response => response.data)
       .then(data => {
-        debugger;
         dispatch(fetchMyGroupsDone(data));
         if(data[0]){
           dispatch(groupItemSelected(data[0]));

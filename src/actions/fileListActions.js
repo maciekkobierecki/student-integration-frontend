@@ -5,7 +5,6 @@ import {
   end
 } from 'react-redux-spinner';
 import axios from "../axios";
-import './appActions';
 import {loadingTurnOff, loadingTurnOn} from "./appActions";
 
 export function clearFileList() {
