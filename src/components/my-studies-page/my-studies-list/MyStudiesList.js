@@ -85,7 +85,7 @@ MyStudiesList.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  const {myGroups, selectedGroup, selectedSubject} = state.myStudiesList;
+  const {myGroups, selectedGroup, selectedSubject} = state.myStudies;
   return {
     myGroups: myGroups,
     selectedGroup: selectedGroup,

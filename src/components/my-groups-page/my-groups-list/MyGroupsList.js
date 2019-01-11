@@ -45,9 +45,9 @@ MyGroupsList.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {groups} = state.myGroupsList;
+  const {myGroups} = state.myStudies;
   return {
-    groups: groups
+    groups: myGroups
   };
 }
 

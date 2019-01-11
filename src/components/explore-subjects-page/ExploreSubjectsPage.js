@@ -1,9 +1,10 @@
 import React from 'react';
-import ExploreComponent from "./explore-component/ExploreComponet";
+import ExploreComponent from "./explore-component/ExploreComponent";
+import './ExploreSubjectsPage.css';
 
 const ExploreSubjectsPage = () => {
   return (
-    <div className="my-files-page">
+    <div className="explore-page">
       <ExploreComponent/>
     </div>
   );

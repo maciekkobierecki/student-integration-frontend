@@ -1,52 +1,37 @@
 import React from 'react';
-import connect from "react-redux/es/connect/connect";
 import PropTypes from 'prop-types';
-import {withRouter} from "react-router-dom";
+import ReduxLazyScroll from "redux-lazy-scroll";
 import './ExploreList.css';
-
+import Subject from "./subject/Subject";
 
 class ExploreList extends React.Component {
-  render() {
-    let groupName = this.props.groupName;
+    render(){
+      let isFetching = this.props.isFetching;
+      let errorMessage = null;
+      let hasMore = this.props.hasMore;
     return (
-      <div>
-        {this.props.loading && <div>Dodawanie do grupy...</div>}
-        {this.props.success && <div className="alert alert-success" role="alert">
-          Zostałeś dodany do grupy {groupName}.
-        </div>}
-        {this.props.failure && <div className="alert alert-danger" role="alert">
-          Dodawanie do grupy zakończone niepowodzeniem! Spróbuj odświeżyć stronę.
-        </div>}
+      <div className="container posts-lazy-scroll">
+        <ReduxLazyScroll
+          isFetching={isFetching}
+          errorMessage={errorMessage}
+          loadMore={(param) => this.props.onFetchSubjects(param)}
+          hasMore={hasMore}
+        >
+          {this.props.subjects.map(subject => (
+            <Subject key={subject.id} subject={subject}/>
+          ))}
+        </ReduxLazyScroll>
       </div>
     )
   }
 }
 
 ExploreList.propTypes = {
-  success: PropTypes.bool,
-  loading: PropTypes.bool,
-  failure: PropTypes.bool,
-  groupName: PropTypes.string,
-  enterToGroup: PropTypes.func.isRequired,
-  enterToGroupClear: PropTypes.func.isRequired
+  subjects: PropTypes.array,
+  isFetching: PropTypes.bool,
+  hasMore: PropTypes.bool,
+  onFetchSubjects: PropTypes.func
+
 };
 
-const mapStateToProps = (state) => {
-  const {success, loading, failure} = state.groupRecruitment.groupEnter;
-  return {
-    success: success,
-    loading: loading,
-    failure: failure
-  };
-}
-
-
-const mapDispatchToProps = (dispatch) => ({
-    enterToGroup: () => dispatch(null)
-  })
-;
-
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ExploreList));
+export default ExploreList;

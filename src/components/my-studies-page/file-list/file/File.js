@@ -5,7 +5,7 @@ import {lang} from '../../../../constants/translations';
 import './File.css';
 
 
-const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone}) => {
+const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone, onFileMark}) => {
   if (editing) {
     return (
       <div className="container file">
@@ -50,13 +50,15 @@ const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone}) => {
         </div>
         <div className="col-1">
           <div className="row">
-            <div>
+            <div className={file.isMarkable ? "clickable" : "disabled opacity"}
+                 onClick={() => onFileMark(file.id, true)}>
               <MdExpandLess className="text-green" size={30}/>
             </div>
             <div>
-              50%
+              {parseInt(100 * file.rating / file.ratingCount)}%
             </div>
-            <div>
+            <div className={file.isMarkable ? "clickable" : "disabled opacity"}
+                 onClick={() => onFileMark(file.id, false)}>
               <MdExpandMore className="text-red" size={30}/>
             </div>
           </div>

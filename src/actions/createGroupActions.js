@@ -83,7 +83,7 @@ export function fetchDegrees(){
     dispatch(fetchDegreesRequested());
     dispatch(loadingTurnOn());
     var state = getState();
-    var academyId = state.createGroupForm.creatingGroup.academyId;
+    var academyId = state.groupCreation.creatingGroup.academyId;
     axios().get(
       `/api/academies/${academyId}/degrees`)
       .then(response => response.data)
@@ -146,7 +146,7 @@ export function createGroupFailed(error){
 export function groupCreationDone(){
   return (dispatch, getState) => {
     var state = getState();
-    var groupData = state.createGroupForm.creatingGroup;
+    var groupData = state.groupCreation.creatingGroup;
 
     dispatch(createGroupRequested());
     axios().post(

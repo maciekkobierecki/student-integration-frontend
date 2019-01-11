@@ -20,7 +20,7 @@ SubjectDetails.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {success} = state.groupRecruitment.groupEnter;
+  const {success} = state.appContext.status;
   return {
     success: success
   };

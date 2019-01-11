@@ -1,20 +1,18 @@
-import { combineReducers } from 'redux';
-import fileList from './fileListReducer';
-import myStudiesList from './myStudiesListReducer';
-import app from './appReducer';
-import createGroupForm from './createGroupFormReducer';
-import myGroupsList from './myGroupsListReducer';
-import { pendingTasksReducer } from 'react-redux-spinner';
+import {combineReducers} from 'redux';
+import myStudies from './MyStudiesReducer';
+import appContext from './appContextReducer';
+import groupCreation from './createGroupFormReducer';
+import {pendingTasksReducer} from 'react-redux-spinner';
 import groupRecruitment from "./recruitmentReducer";
+import explore from './exploreReducer';
 
 const rootReducer = combineReducers({
-  fileList: fileList,
-  myStudiesList: myStudiesList,
-  pendingTasks: pendingTasksReducer,
-  createGroupForm: createGroupForm,
-  myGroupsList: myGroupsList,
-  groupRecruitment: groupRecruitment,
-  app: app
+  appContext,
+  myStudies,
+  groupCreation,
+  explore,
+  groupRecruitment,
+  pendingTasks: pendingTasksReducer
 });
 
 export default rootReducer;

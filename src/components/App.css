@@ -93,4 +93,16 @@ a{
   height: inherit;
 }
 
+.clickable:hover{
+  cursor: pointer;
+}
+
+.disabled{
+  pointer-events: none;
+}
+
+.disabled.opacity{
+  opacity: 0.5;
+}
+
 

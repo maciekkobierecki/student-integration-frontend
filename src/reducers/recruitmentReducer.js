@@ -1,7 +1,7 @@
 import initalState from "./initialState";
 import * as types from "../constants/actionTypes";
 
-export default function groupRecruitment(state = initalState, action) {
+export default function groupRecruitment(state = initalState.groupEnter, action) {
   switch (action.type) {
     case types.ENTER_TO_GROUP_REQUESTED:
       return {...state, groupEnter: {...state.groupEnter, loading: true}};

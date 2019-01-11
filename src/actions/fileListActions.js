@@ -42,8 +42,8 @@ export function fetchFileList() {
     dispatch(getDataRequested());
     dispatch(loadingTurnOn());
     var state = getState();
-    var subjectId = state.myStudiesList.selectedSubject.id;
-    var criteria = state.fileList.criteria;
+    var subjectId = state.myStudies.selectedSubject.id;
+    var criteria = state.myStudies.searchCriteria;
     axios().post(
       `/api/files`,
       JSON.stringify(
@@ -112,8 +112,8 @@ export function fileEditApproved() {
           fileEdited
         })
     )
-      .then(fileEditApprovedDone())
-      .then(fetchFileList())
+      .then(dispatch(fileEditApprovedDone()))
+      .then(dispatch(fetchFileList()))
       .catch(error => {
         dispatch(fileEditApprovedFailed(error));
       })
@@ -148,9 +148,9 @@ export function createDocument() {
     dispatch(createDocumentRequested());
     dispatch(loadingTurnOn());
     let state = getState();
-    let subjectId = state.myStudiesList.selectedSubject.id;
+    let subjectId = state.myStudies.selectedSubject.id;
     axios().post(
-      `/api/file/${subjectId}/new`,
+      `/api/files/${subjectId}/new`,
       JSON.stringify(
         {
           subjectId: subjectId
@@ -160,7 +160,7 @@ export function createDocument() {
       .then(()=> {
         dispatch(createDocumentDone());
         dispatch(loadingTurnOff());
-        fetchFileList();
+        dispatch(fetchFileList());
       })
       .catch(error => {
         dispatch(createDocumentFailed(error));
@@ -188,3 +188,49 @@ export function searchFile(criteria) {
     dispatch(fetchFileList());
   }
 }
+
+
+
+export function markFileRequested() {
+  return {
+    type: types.MARK_FILE_REQUESTED,
+    [pendingTask]: begin
+  }
+}
+
+export function markFileDone() {
+  return {
+    type: types.MARK_FILE_DONE,
+    [pendingTask]: end
+  }
+}
+
+export function markFileFailed(error) {
+  return {
+    type: types.MARK_FILE_FAILED,
+    [pendingTask]: end,
+    error: error
+  }
+}
+
+export function markFile(fileId, isPositive) {
+  return (dispatch) => {
+    dispatch(markFileRequested());
+    dispatch(loadingTurnOn());
+    axios().post(
+      `/api/files/${fileId}/mark/${isPositive}`
+    )
+      .then(response => response.data)
+      .then(()=> {
+        dispatch(markFileDone());
+        dispatch(loadingTurnOff());
+        dispatch(fetchFileList());
+      })
+      .catch(error => {
+        dispatch(markFileFailed(error));
+        dispatch(loadingTurnOff());
+      })
+  }
+}
+
+

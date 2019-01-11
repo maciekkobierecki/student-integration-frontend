@@ -40,6 +40,7 @@ class FileList extends React.Component {
     const onFileEditDone = this.fileEditApproved;
     const onFileOpen = this.openFile;
     const onCreateDocument = this.props.createDocument;
+    const onFileMark = this.props.markFile;
     let {editingFile, searchCriteria, files, hasGroups} = this.props;
 
     if(!hasGroups){
@@ -73,7 +74,8 @@ class FileList extends React.Component {
                            file={editingFile !== null && listValue.id === editingFile.id ? editingFile : listValue}
                            onFileOpen={onFileOpen}
                            onFileEdit={onFileEdit}
-                           onFileEditDone={onFileEditDone}/>
+                           onFileEditDone={onFileEditDone}
+                           onFileMark={onFileMark}/>
             })}
           </ul>
         </div>
@@ -86,19 +88,20 @@ FileList.propTypes = {
   files: PropTypes.array,
   hasGroups: PropTypes.bool,
   editingFile: PropTypes.object,
-  searchCriteria: PropTypes.string.isRequired,
+  searchCriteria: PropTypes.string,
   clearFileList: PropTypes.func.isRequired,
   fetchFileList: PropTypes.func.isRequired,
   fileEdit: PropTypes.func.isRequired,
   fileEditApproved: PropTypes.func.isRequired,
   createDocument: PropTypes.func.isRequired,
   uploadFile: PropTypes.func.isRequired,
-  searchFile: PropTypes.func.isRequired
+  searchFile: PropTypes.func.isRequired,
+  markFile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
-  let {files, editingFile, searchCriteria} = state.fileList;
-  let hasGroups = !!state.myStudiesList.myGroups.length;
+  let {files, editingFile, searchCriteria} = state.myStudies;
+  let hasGroups = !!state.myStudies.myGroups.length;
 
   return {
     hasGroups: hasGroups,
@@ -116,7 +119,8 @@ const mapDispatchToProps = (dispatch) => ({
   fileEditApproved: () => dispatch(actions.fileEditApproved()),
   createDocument: () => dispatch(actions.createDocument()),
   uploadFile: () => dispatch(actions.uploadFile()),
-  searchFile: (criteria) => dispatch(actions.searchFile(criteria))
+  searchFile: (criteria) => dispatch(actions.searchFile(criteria)),
+  markFile: (fileId, isPositive) => dispatch(actions.markFile(fileId, isPositive))
 });
 
 export default withRouter(connect(

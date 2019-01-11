@@ -42,8 +42,8 @@ GroupAdder.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {success, loading, failure} = state.groupRecruitment.groupEnter;
-  return {
+  const {success, loading, failure} = state.appContext.status;
+  return  {
     success: success,
     loading: loading,
     failure: failure

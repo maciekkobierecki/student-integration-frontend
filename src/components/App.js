@@ -123,7 +123,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {currentTabName, isAuthenticated, appId, user, loadingCount} = state.app;
+  const {currentTabName, isAuthenticated, appId, user, loadingCount} = state.appContext;
   return {
     currentTab: currentTabName,
     isAuthenticated: isAuthenticated,

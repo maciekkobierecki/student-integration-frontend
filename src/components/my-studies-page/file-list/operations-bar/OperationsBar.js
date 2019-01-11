@@ -17,7 +17,6 @@ class OperationsBar extends React.Component {
 
   render() {
     const {criteria, onFileCreate, onFileUpload, onSearch} = this.props;
-    const searchValue = null;
     return (
       <div>
         <div className="container operations-bar">
@@ -47,7 +46,7 @@ class OperationsBar extends React.Component {
 }
 
 OperationsBar.propTypes = {
-  criteria: PropTypes.string.isRequired,
+  criteria: PropTypes.string,
   onFileCreate: PropTypes.func.isRequired,
   onFileUpload: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired

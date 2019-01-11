@@ -5,14 +5,14 @@ import {loadingTurnOff, loadingTurnOn} from "./appActions";
 
 export function fetchMyGroupsRequested(){
   return {
-    type: types.FETCH_MY_GROUPS_REQUESTED,
+    type: types.FETCH_MY_GROUPS_LIST_REQUESTED,
     [ pendingTask ]: begin
   }
 }
 
 export function fetchMyGroupsDone(data){
   return {
-    type: types.FETCH_MY_GROUPS_DONE,
+    type: types.FETCH_MY_GROUPS_LIST_DONE,
     [ pendingTask ]: end,
     data: data
   }
@@ -20,7 +20,7 @@ export function fetchMyGroupsDone(data){
 
 export function fetchMyGroupsFailed(error){
   return {
-    type: types.FETCH_MY_GROUPS_FAILED,
+    type: types.FETCH_MY_GROUPS_LIST_FAILED,
     [ pendingTask ]: end,
     error: error
   }

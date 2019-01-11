@@ -38,7 +38,6 @@ class CreateGroupForm extends React.Component {
   }
 
   stepChanged(evt) {
-    debugger;
     const activeStep = evt.activeStep;
     if (activeStep === STEP_INDEX.DEGREES) {
       this.props.fetchDegrees();
@@ -87,7 +86,7 @@ CreateGroupForm.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  let {allAcademies, degrees, creatingGroup} = state.createGroupForm;
+  let {allAcademies, degrees, creatingGroup} = state.groupCreation;
   return {
     creatingGroup: creatingGroup,
     academies: allAcademies,
@@ -144,7 +143,6 @@ class AcademyStep extends React.Component {
   }
 
   render() {
-    debugger;
     if (!this.props.isActive) return null;
     const academies = this.props.academies;
     const onAcademySelected = this.props.onAcademySelected;
