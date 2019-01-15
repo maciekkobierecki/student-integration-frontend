@@ -3,7 +3,6 @@ import initalState from './initialState';
 
 //TODO: use Immutable
 export default function myStudies(state = initalState.myStudies, action){
-  debugger;
   switch(action.type){
     case types.CLEAR_FILE_LIST:
       return {...state, file: []};

@@ -7,7 +7,9 @@ export default {
     user: localStorage.getItem('username'),
     loadingCount: 0,
     appId: 2108929732752092,
-    status: {}
+    status: {
+      error: null
+    }
   },
   myStudies: {
     myGroups: [],
@@ -24,10 +26,12 @@ export default {
   },
   explore: {
     subjects:[],
+    files: [],
     subjectDetails: null,
     fileDetails: null,
     isFetching: false,
-    limit: 10,
+    currentSearching: "Przedmioty",
+    limit: 3,
     offset: 0,
     hasMore: true
   },

@@ -25,10 +25,6 @@ class FileList extends React.Component {
 
   }
 
-  openFile(url) {
-    window.open(url, "_blank");
-  }
-
   fileEditApproved(evt) {
     evt.preventDefault();
     const {fileEditApproved} = this.props;
@@ -38,7 +34,6 @@ class FileList extends React.Component {
   render() {
     const onFileEdit = this.props.fileEdit;
     const onFileEditDone = this.fileEditApproved;
-    const onFileOpen = this.openFile;
     const onCreateDocument = this.props.createDocument;
     const onFileMark = this.props.markFile;
     let {editingFile, searchCriteria, files, hasGroups} = this.props;
@@ -72,7 +67,6 @@ class FileList extends React.Component {
               return <File key={listValue.id}
                            editing={editingFile !== null ? listValue.id === editingFile.id : false}
                            file={editingFile !== null && listValue.id === editingFile.id ? editingFile : listValue}
-                           onFileOpen={onFileOpen}
                            onFileEdit={onFileEdit}
                            onFileEditDone={onFileEditDone}
                            onFileMark={onFileMark}/>
@@ -120,7 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
   createDocument: () => dispatch(actions.createDocument()),
   uploadFile: () => dispatch(actions.uploadFile()),
   searchFile: (criteria) => dispatch(actions.searchFile(criteria)),
-  markFile: (fileId, isPositive) => dispatch(actions.markFile(fileId, isPositive))
+  markFile: (fileId, isPositive) => dispatch(actions.markFile(fileId, isPositive, actions.fetchFileList))
 });
 
 export default withRouter(connect(

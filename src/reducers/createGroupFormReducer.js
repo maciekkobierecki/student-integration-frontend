@@ -5,7 +5,7 @@ import set from 'lodash/fp/set';
 export default function groupCreation(state = initalState.groupCreation, action) {
   switch (action.type) {
     case types.CLEAR_GROUP_CREATION_DATA:
-      return {...state, creatingGroup: {}, allAcademies: [], subjects: []};
+      return {...state, creatingGroup: {}, allAcademies: [], files: []};
     case types.FETCH_ACADEMIES_DONE:
       return {...state, allAcademies: action.data };
     case types.FETCH_DEGREES_DONE:

@@ -4,7 +4,7 @@ import './ExploreSubjectsPage.css';
 
 const ExploreSubjectsPage = () => {
   return (
-    <div className="explore-page">
+    <div>
       <ExploreComponent/>
     </div>
   );

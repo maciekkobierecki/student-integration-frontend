@@ -1,5 +1,7 @@
-import * as types from './../constants/actionTypes'
+import * as types from './../constants/actionTypes';
 import initalState from './initialState';
+import set from 'lodash/fp/set';
+
 //TODO: use Immutable
 export default function appContext(state = initalState.appContext, action) {
   switch (action.type) {
@@ -15,6 +17,8 @@ export default function appContext(state = initalState.appContext, action) {
       return {...state, isAuthenticated: false, user: null};
     case types.BACKEND_LOGIN_DONE:
       return {...state, isAuthenticated: true};
+    case types.ERROR:
+      return set(`status.error.message`, action.message, state);
     default:
       return state;
   }

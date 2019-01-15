@@ -2,6 +2,16 @@ import * as types from '../constants/actionTypes';
 import {begin, end, pendingTask} from "react-redux-spinner";
 import axios from '../axios';
 
+export function showError(message){
+  return dispatch => {
+    dispatch({
+        type: types.ERROR,
+        message: message
+      }
+    );
+  }
+}
+
 export function loadingTurnOn(){
   return dispatch => { dispatch(
     {
@@ -16,6 +26,16 @@ export function loadingTurnOff(){
       type: types.LOADING_OFF
     }
   )}
+}
+
+export function resetState(){
+  return dispatch => {
+    dispatch(
+      {
+        type: types.RESET_STATE
+      }
+    )
+  }
 }
 
 export function tabSelectedAction(selectedTabName){
@@ -88,3 +108,4 @@ export function backendLogin(fbAccessToken){
       })
   }
 }
+

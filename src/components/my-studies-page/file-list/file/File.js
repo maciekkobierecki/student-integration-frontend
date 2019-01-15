@@ -5,7 +5,7 @@ import {lang} from '../../../../constants/translations';
 import './File.css';
 
 
-const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone, onFileMark}) => {
+const File = ({file, editing, onFileEdit, onFileEditDone, onFileMark}) => {
   if (editing) {
     return (
       <div className="container file">
@@ -36,15 +36,15 @@ const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone, onFileMark
           <div className="container">
             <div className="row">
               <div className="name si-yellow">{file.name}</div>
-              <div className="edit-file-button" onClick={() => onFileEdit(file)}>
+              {onFileEdit && <div className="edit-file-button" onClick={() => onFileEdit(file)}>
                 <MdBuild size={20}/>
-              </div>
+              </div>}
               <div className="createDate">{file.createDate}</div>
             </div>
             <div className="file-description">{file.description}</div>
             <div className="row">
               <div className="btn bg-light ml-auto mr-2"
-                   onClick={() => onFileOpen(file.url)}>{lang.buttons.goToDrive}</div>
+                   onClick={() => window.open(file.url, "_blank")}>{lang.buttons.goToDrive}</div>
             </div>
           </div>
         </div>
@@ -70,9 +70,9 @@ const File = ({file, editing, onFileOpen, onFileEdit, onFileEditDone, onFileMark
 
 File.propTypes = {
   file: PropTypes.object.isRequired,
-  editing: PropTypes.bool.isRequired,
-  onFileOpen: PropTypes.func.isRequired,
-  onFileEdit: PropTypes.func.isRequired,
-  onFileEditDone: PropTypes.func.isRequired,
+  editing: PropTypes.bool,
+  onFileEdit: PropTypes.func,
+  onFileEditDone: PropTypes.func,
+  onFileMark: PropTypes.func
 }
 export default File;

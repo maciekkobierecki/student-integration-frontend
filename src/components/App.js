@@ -14,6 +14,8 @@ import connect from "react-redux/es/connect/connect";
 import FacebookLogin from 'react-facebook-login';
 import GroupCreationPage from "./group-creation-page/GroupCreationPage";
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle';
+window.jQuery = window.$ = require('jquery/dist/jquery.min.js');
 import MyGroupsPage from "./my-groups-page/MyGroupsPage";
 import RecruitmentPage from "./recruitment-page/RecruitmentPage";
 
@@ -26,7 +28,8 @@ const ROUTE = {
   CREATE_GROUP: '/create-group',
   MY_GROUPS: '/my-groups',
   RECRUITMENT: '/recruitment',
-  SUBJECTS_DIRECTORY: '/explore',
+  EXPLORE_SUBJECTS: '/explore/subjects',
+  EXPLORE_FILES: '/explore/files',
   HOME: '/'
 };
 
@@ -54,6 +57,12 @@ class App extends React.Component {
     facebookLogin(data);
   }
 
+  logout(){
+    window.localStorage.removeItem('jwt');
+    window.localStorage.removeItem('username');
+    window.location.href = 'https://student-integration.pl';
+  }
+
   render() {
     const loginPageImage = require('../../images/students.JPG');
     if (this.props.isAuthenticated) {
@@ -63,19 +72,24 @@ class App extends React.Component {
           <div className="navbar sticky-top si-color">
             <Link to={ROUTE.HOME} className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.FILE_LIST)}>{TABS.FILE_LIST}</Link>
-            <Link to={ROUTE.SUBJECTS_DIRECTORY} className="navbar-brand si-color-text si-navbar-option"
+            <Link to={ROUTE.EXPLORE_SUBJECTS} className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.EXPLORE_SUBJECTS)}>{TABS.EXPLORE_SUBJECTS}</Link>
             <Link to={ROUTE.CREATE_GROUP} className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.CREATE_GROUP)}>{TABS.CREATE_GROUP}</Link>
             <Link to={ROUTE.MY_GROUPS} className="navbar-brand si-color-text si-navbar-option"
                   onClick={() => this.tabSelected(TABS.MY_GROUPS)}>{TABS.MY_GROUPS}</Link>
             <div className="navbar-brand ml-auto text-white"> {this.props.user}</div>
+            <div className="btn text-white fs14" onClick={this.logout}>wyloguj</div>
           </div>
           <div className="page-content">
+            {this.props.status.error &&<div className="alert alert-danger mt-3" role="alert">
+              {this.props.status.error.message}
+            </div>}
             <div className={this.props.loadingCount !== 0 ? "loading" : ""}>
               <Switch>
                 <Route exact path={ROUTE.HOME} component={MyStudiesPage}/>
-                <Route path={ROUTE.SUBJECTS_DIRECTORY} component={ExploreSubjectsPage}/>
+                <Route path={ROUTE.EXPLORE_SUBJECTS} component={ExploreSubjectsPage}/>
+                <Route path={ROUTE.EXPLORE_FILES} component={ExploreSubjectsPage}/>
                 <Route path={ROUTE.CREATE_GROUP} component={GroupCreationPage}/>
                 <Route path={ROUTE.MY_GROUPS} component={MyGroupsPage}/>
                 <Route path='/recruitment/:hash' component={RecruitmentPage}/>
@@ -116,6 +130,7 @@ App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   appId: PropTypes.number,
   user: PropTypes.string,
+  status: PropTypes.object,
   loadingCount: PropTypes.number,
   tabSelected: PropTypes.func,
   facebookLogin: PropTypes.func
@@ -123,13 +138,14 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {currentTabName, isAuthenticated, appId, user, loadingCount} = state.appContext;
+  const {currentTabName, isAuthenticated, appId, user, loadingCount, status} = state.appContext;
   return {
     currentTab: currentTabName,
     isAuthenticated: isAuthenticated,
     appId: appId,
     user: user,
-    loadingCount: loadingCount
+    loadingCount: loadingCount,
+    status: status
   };
 };
 

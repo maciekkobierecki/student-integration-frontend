@@ -41,9 +41,10 @@ export function fetchFileList() {
   return (dispatch, getState) => {
     dispatch(getDataRequested());
     dispatch(loadingTurnOn());
-    var state = getState();
-    var subjectId = state.myStudies.selectedSubject.id;
-    var criteria = state.myStudies.searchCriteria;
+    let state = getState();
+    let criteria = state.myStudies.searchCriteria;
+    let subjectId = state.myStudies.selectedSubject.id;
+
     axios().post(
       `/api/files`,
       JSON.stringify(
@@ -104,7 +105,7 @@ export function fileEditApproved() {
   return (dispatch, getState) => {
     dispatch(fileEditApprovedRequested());
     var state = getState();
-    var fileEdited = state.fileList.editingFile;
+    var fileEdited = state.myStudies.editingFile;
     axios().post(
       `/api/files/edit`,
       JSON.stringify(
@@ -213,18 +214,23 @@ export function markFileFailed(error) {
   }
 }
 
-export function markFile(fileId, isPositive) {
+export function markFile(fileId, isPositive, reloadFileListMethod) {
   return (dispatch) => {
     dispatch(markFileRequested());
     dispatch(loadingTurnOn());
     axios().post(
-      `/api/files/${fileId}/mark/${isPositive}`
+      `/api/files/mark`,
+      {
+        fileId: fileId,
+        isPositive: isPositive
+      }
     )
       .then(response => response.data)
       .then(()=> {
         dispatch(markFileDone());
         dispatch(loadingTurnOff());
-        dispatch(fetchFileList());
+        debugger;
+        reloadFileListMethod();
       })
       .catch(error => {
         dispatch(markFileFailed(error));

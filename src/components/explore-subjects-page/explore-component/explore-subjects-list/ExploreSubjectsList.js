@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReduxLazyScroll from "redux-lazy-scroll";
-import './ExploreList.css';
-import Subject from "./subject/Subject";
+import './ExploreSubjectsList.css';
+import Subject from "../explore-subjects-list/subject/Subject";
 
-class ExploreList extends React.Component {
+class ExploreSubjectsList extends React.Component {
     render(){
       let isFetching = this.props.isFetching;
       let errorMessage = null;
       let hasMore = this.props.hasMore;
+      debugger;
     return (
-      <div className="container posts-lazy-scroll">
+      <div className="container posts-lazy-scroll list-group">
         <ReduxLazyScroll
           isFetching={isFetching}
           errorMessage={errorMessage}
@@ -18,7 +19,7 @@ class ExploreList extends React.Component {
           hasMore={hasMore}
         >
           {this.props.subjects.map(subject => (
-            <Subject key={subject.id} subject={subject}/>
+            <Subject key={subject.id} subject={subject} onSelect={this.props.onSubjectSelect}/>
           ))}
         </ReduxLazyScroll>
       </div>
@@ -26,12 +27,13 @@ class ExploreList extends React.Component {
   }
 }
 
-ExploreList.propTypes = {
+ExploreSubjectsList.propTypes = {
   subjects: PropTypes.array,
   isFetching: PropTypes.bool,
   hasMore: PropTypes.bool,
-  onFetchSubjects: PropTypes.func
+  onFetchSubjects: PropTypes.func,
+  onSubjectSelect: PropTypes.func
 
 };
 
-export default ExploreList;
+export default ExploreSubjectsList;
