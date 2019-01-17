@@ -11,7 +11,7 @@ const File = ({comment}) => {
           {comment.content}
         </div>
         <div className="text-right">
-          Maciek Kobierecki
+          {comment.author}
         </div>
       </div>
     </div>);

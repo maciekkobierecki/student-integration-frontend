@@ -14,13 +14,14 @@ export function fetchSubjectsRequested(offset, limit) {
   }
 }
 
-export function fetchSubjectsDone(data) {
+export function fetchSubjectsDone(subjects, isReload=false) {
   return {
     type: types.FETCH_SUBJECTS_DONE,
     [pendingTask]: end,
     data: {
-      subjects: data,
-      hasMore: !!data.length
+      subjects: subjects,
+      isReload: isReload,
+      hasMore: !!subjects.length
     }
   }
 }
@@ -34,22 +35,23 @@ export function fetchSubjectsFailed(error) {
 }
 
 
-export function fetchSubjects() {
+export function fetchSubjects(reload = false) {
   return (dispatch, getState) => {
-    debugger;
     let state = getState().explore;
     dispatch(fetchSubjectsRequested(state.offset, state.limit));
     dispatch(loadingTurnOn());
+    let offset = reload ? 0 : state.offset;
+    let limit = reload ? state.offset : state.limit;
     axios().post(
       `/api/subjects`,
       {
-        offset: state.offset,
-        limit: state.limit
+        offset: offset,
+        limit: limit
       }
     )
       .then(response => response.data)
       .then(data => {
-        dispatch(fetchSubjectsDone(data));
+        dispatch(fetchSubjectsDone(data, reload));
         dispatch(loadingTurnOff());
 
       })
@@ -71,12 +73,13 @@ export function fetchFilesRequested(offset, limit) {
   }
 }
 
-export function fetchFilesDone(data) {
+export function fetchFilesDone(data, isReload=false) {
   return {
     type: types.FETCH_FILES_DONE,
     [pendingTask]: end,
     data: {
       files: data,
+      isReload: isReload,
       hasMore: !!data.length
     }
   }
@@ -91,23 +94,25 @@ export function fetchFilesFailed(error) {
 }
 
 
-export function fetchFiles() {
+export function fetchFiles(reload=false) {
   return (dispatch, getState) => {
     let state = getState().explore;
     dispatch(fetchFilesRequested(state.offset, state.limit));
     dispatch(loadingTurnOn());
+    let offset = reload ? 0 : state.offset;
+    let limit = reload ? state.offset : state.limit;
     axios().post(
       `/api/files`,
       {
         pagination:{
-          offset: state.offset,
-          limit: state.limit
+          offset: offset,
+          limit: limit
         }
       }
     )
       .then(response => response.data)
       .then(data => {
-        dispatch(fetchFilesDone(data));
+        dispatch(fetchFilesDone(data, reload));
         dispatch(loadingTurnOff());
 
       })
@@ -207,6 +212,57 @@ export function fetchSubjectComments(subjectId) {
   }
 }
 
+export function addComment(subjectId, content, reloadMethod) {
+  return (dispatch) => {
+    dispatch(addCommentRequested());
+    dispatch(loadingTurnOn());
+    axios().post(
+      `/api/subjects/comments/new`,
+      {
+        subjectId: subjectId,
+        isAnonymous: true,
+        content: content
+      }
+    )
+      .then(response => response.data)
+      .then((data)=> {
+        dispatch(addCommentDone(data));
+        dispatch(loadingTurnOff());
+        debugger;
+        if(reloadMethod){
+          reloadMethod();
+        }
+      })
+      .catch(error => {
+        dispatch(addCommentFailed(error));
+        dispatch(loadingTurnOff());
+      })
+  }
+}
+
+export function addCommentRequested() {
+  return {
+    type: types.ADD_COMMENT_REQUESTED,
+    [pendingTask]: begin
+  }
+}
+
+export function addCommentDone(comments) {
+  return {
+    type: types.ADD_COMMENT_DONE,
+    data: comments,
+    [pendingTask]: end
+  }
+}
+
+export function addCommentFailed(error) {
+  return {
+    type: types.ADD_COMMENT_FAILED,
+    [pendingTask]: end,
+    error: error
+  }
+}
+
 export function fetchPublicFileListRequested() {
   return {
     type: types.FETCH_PUBLIC_FILE_LIST_REQUESTED,
@@ -233,7 +289,6 @@ export function fetchPublicFileListFailed(error) {
 
 export function fetchPublicFileList(subjectId) {
   return (dispatch, getState) => {
-    debugger;
     dispatch(fetchPublicFileListRequested());
     dispatch(loadingTurnOn());
     var state = getState();

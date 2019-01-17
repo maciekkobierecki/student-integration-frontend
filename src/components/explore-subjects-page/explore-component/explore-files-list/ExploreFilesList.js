@@ -4,6 +4,9 @@ import ReduxLazyScroll from "redux-lazy-scroll";
 import File from "../../../my-studies-page/file-list/file/File";
 
 class ExploreFilesList extends React.Component {
+  componentDidUpdate(){
+    debugger;
+  }
   render(){
     let isFetching = this.props.isFetching;
     let errorMessage = null;

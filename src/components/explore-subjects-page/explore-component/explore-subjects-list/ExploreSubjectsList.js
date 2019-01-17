@@ -9,7 +9,6 @@ class ExploreSubjectsList extends React.Component {
       let isFetching = this.props.isFetching;
       let errorMessage = null;
       let hasMore = this.props.hasMore;
-      debugger;
     return (
       <div className="container posts-lazy-scroll list-group">
         <ReduxLazyScroll

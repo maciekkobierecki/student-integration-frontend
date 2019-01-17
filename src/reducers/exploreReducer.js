@@ -12,7 +12,7 @@ export default function explore(state = initalState.explore, action) {
     case types.FETCH_SUBJECTS_DONE:
       return {
         ...state,
-        subjects: state.subjects.concat(action.data.subjects),
+        subjects: action.data.isReload ? action.data.subjects : state.subjects.concat(action.data.subjects),
         hasMore: action.data.hasMore,
         isFetching: false
       };
@@ -23,7 +23,7 @@ export default function explore(state = initalState.explore, action) {
     case types.FETCH_FILES_DONE:
       return {
         ...state,
-        files: state.files.concat(action.data.files),
+        files: action.data.isReload ? action.data.files : state.files.concat(action.data.files),
         hasMore: action.data.hasMore,
         isFetching: false
       };
@@ -36,7 +36,7 @@ export default function explore(state = initalState.explore, action) {
     case types.FETCH_SUBJECT_COMMENTS_DONE:
       return set('subjectDetails.comments', action.data, state);
     case types.MARK_SUBJECT_DONE:
-      return {...state, subjectDetails: action.data};
+      return {...state, subjectDetails: {...action.data, files: state.subjectDetails.files}};
     case types.CURRENT_SEARCHING_CHANGE:
       return {...state, currentSearching: action.data, offset: 0, hasMore: true, subjects: [], files: []};
     default:

@@ -47,7 +47,6 @@ class ExploreComponent extends React.Component {
         </div>
       </div>
     );
-    debugger;
     let exploreSubjectsList = (
       <div className='row'>
         <ExploreSubjectsList onFetchSubjects={this.props.fetchSubjects} onSubjectSelect={this.props.onSubjectSelect}
@@ -120,7 +119,7 @@ const mapDispatchToProps = (dispatch) => ({
   onFileMark: (subjectId) => dispatch(actions.fetchSubjectDetails(subjectId)),
   currentSearchingChange: (newCurrentSearching) => dispatch(actions.currentSearchingChange(newCurrentSearching)),
   initState: () => dispatch(appActions.resetState()),
-  markFile: (fileId, isPositive) => dispatch(fileActions.markFile(fileId, isPositive, () => dispatch(actions.fetchSubjects())))
+  markFile: (fileId, isPositive) => dispatch(fileActions.markFile(fileId, isPositive, () => dispatch(actions.fetchFiles(true))))
 });
 
 export default withRouter(connect(

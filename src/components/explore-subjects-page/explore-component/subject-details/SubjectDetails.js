@@ -11,16 +11,24 @@ import * as fileActions from "../../../../actions/fileListActions";
 
 
 class SubjectDetails extends React.Component {
+  constructor(props){
+    super(props);
+    this.markSubject = this.markSubject.bind(this);
+  }
+
+  markSubject(subjectDetails, isPositive) {
+    this.props.markSubject(subjectDetails, isPositive);
+  }
+
   render() {
     let subjectDetails = this.props.subjectDetails;
     let files = subjectDetails && subjectDetails.files;
     const onFileMark = this.props.markFile;
-    const onSubjectMark = this.props.markSubject;
+    const onSubjectMark = this.markSubject;
 
     if (!subjectDetails) {
       return <div>loading</div>
     }
-
     return (
       <div className="container">
         <div className="row mt-2">
@@ -75,7 +83,9 @@ class SubjectDetails extends React.Component {
           <div className="col-9">
             <Route exact path='/explore/subjects/details/' render={() => (
               <div>
-                {files && !files.length && <div className="alert alert-info ml-2 mr-2">Przedmiot nie posiada przypisanych jeszcze żadnych plików.</div>}
+                {files && !files.length &&
+                <div className="alert alert-info ml-2 mr-2">Przedmiot nie posiada przypisanych jeszcze żadnych
+                  plików.</div>}
                 {files && files.map(function (listValue) {
                   return <File key={listValue.id}
                                file={listValue}
@@ -94,7 +104,8 @@ class SubjectDetails extends React.Component {
 
 SubjectDetails.propTypes = {
   subjectDetails: PropTypes.object,
-  markFile: PropTypes.func
+  markFile: PropTypes.func,
+  markSubject: PropTypes.func
 };
 
 
